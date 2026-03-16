@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>可加入職業｜自由工作者勞保｜設計師、YouTuber、接案工作都可詢問｜桃園市生活助理從業人員職業工會</title>
+  <meta name="description" content="自由工作者勞保、接案勞保、設計師勞保、YouTuber勞保、直播主勞保、自媒體勞保。只要是自由工作者、接案工作、自營作業、沒有固定雇主，多數情況都可以透過職業工會投保勞保與健保。" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div>
+        <span class="pill">可加入職業｜線上投保</span>
+        <span class="muted">先看大分類，再找詳細職業</span>
+      </div>
+      <div>
+        <a class="top-link" href="tel:034941777">📞 03-494-1777</a>
+        <a class="top-link" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">💬 LINE：@097srncp</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">YU</span>
+        <span class="brand-text">
+          <span class="brand-title">桃園市生活助理從業人員職業工會</span>
+          <span class="brand-sub">Taoyuan Living Assistant Labor Union</span>
+        </span>
+      </a>
+
+      <nav class="nav">
+        <a href="about.html">關於我們</a>
+        <a href="jobs.html">可加入職業</a>
+        <a href="join.html">加入方式</a>
+        <a href="knowledge.html">勞健保知識區</a>
+        <a href="insurance.html">團體保險</a>
+        <a href="faq.html">常見問題</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="join.html">查看加入方式</a>
+        <a class="btn btn-primary" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">立即線上投保</a>
+        <button class="hamburger" id="hamburger" aria-label="開啟選單" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 頁首 -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h1>可加入職業一覽</h1>
+          <p class="muted">
+            設計師勞保、YouTuber 勞保、接案勞保、自由工作勞保、直播主勞保、自媒體勞保、
+            保姆勞保、顧問勞保、剪輯師勞保、插畫家勞保、陪聊勞保、陪玩勞保，
+            只要你屬於自由工作者、接案工作、自營作業、沒有固定雇主，多數情況都可以先詢問加入。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 搜尋 -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <h2>快速查詢你的職業</h2>
+          <p class="muted">先輸入你的工作名稱，我們會快速接住你。</p>
+        </div>
+
+        <div style="max-width:640px;">
+          <input
+            id="jobInput"
+            type="text"
+            placeholder="例如：平面設計師 / YouTuber / 美甲師 / 陪玩 / 顧問"
+            style="width:100%;padding:14px;border-radius:12px;border:1px solid #ccc;font-size:16px"
+          >
+          <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button onclick="checkJob()" class="btn btn-primary">查詢</button>
+            <a class="btn btn-ghost" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">直接 LINE 詢問</a>
+          </div>
+          <div id="jobResult" style="margin-top:18px;font-size:18px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 可點擊分類卡片 -->
+    <section class="section">
+      <div class="container">
+        <div class="panel">
+          <h2 style="margin-bottom:18px;">先找你是哪一類</h2>
+
+          <div class="grid-3">
+            <a href="#life-service" style="text-decoration:none;color:inherit;">
+              <article class="card">
+                <div class="card-tag">生活服務</div>
+                <h3>生活管理與服務</h3>
+                <p>保姆、清潔、家政、生活助理、照護、寵物照顧、按摩、美業等。</p>
+              </article>
+            </a>
+
+            <a href="#consulting" style="text-decoration:none;color:inherit;">
+              <article class="card">
+                <div class="card-tag">顧問 / 規劃</div>
+                <h3>生活規劃與顧問</h3>
+                <p>理財顧問、保險顧問、SEO顧問、職涯顧問、品牌顧問、房產顧問等。</p>
+              </article>
+            </a>
+
+            <a href="#reminder-service" style="text-decoration:none;color:inherit;">
+              <article class="card">
+                <div class="card-tag">提醒服務</div>
+                <h3>提醒與生活服務</h3>
+                <p>叫醒服務、行程規劃、活動企劃、婚禮統籌、代辦服務、接待支援等。</p>
+              </article>
+            </a>
+
+            <a href="#creator" style="text-decoration:none;color:inherit;">
+              <article class="card">
+                <div class="card-tag">創作 / 自媒體</div>
+                <h3>內容創作與說書人</h3>
+                <p>YouTuber、IG創作者、Threads創作者、Podcast、直播主、寫手、講師等。</p>
+              </article>
+            </a>
+
+            <a href="#ai-jobs" style="text-decoration:none;color:inherit;">
+              <article class="card">
+                <div class="card-tag">AI / 設計 / 科技</div>
+                <h3>AI相關職業</h3>
+                <p>AI創作、平面設計、攝影、插畫、剪輯、UIUX、網頁設計、程式工程等。</p>
+              </article>
+            </a>
+
+            <a href="#declutter" style="text-decoration:none;color:inherit;">
+              <article class="card">
+                <div class="card-tag">整理服務</div>
+                <h3>斷捨離</h3>
+                <p>整理收納、空間整理、搬家規劃、遺物整理、二手轉售、文件整理等。</p>
+              </article>
+            </a>
+
+            <a href="#translation" style="text-decoration:none;color:inherit;">
+              <article class="card">
+                <div class="card-tag">語言服務</div>
+                <h3>翻譯</h3>
+                <p>口譯、翻譯、字幕翻譯、語言顧問、語言教學、法律翻譯、商業翻譯等。</p>
+              </article>
+            </a>
+
+            <a href="#chatting" style="text-decoration:none;color:inherit;">
+              <article class="card">
+                <div class="card-tag">陪伴互動</div>
+                <h3>陪聊相關職業</h3>
+                <p>聊天主播、語音主播、陪聊員、情感陪伴、聆聽師、陪伴師、陪診等。</p>
+              </article>
+            </a>
+
+            <a href="#gaming" style="text-decoration:none;color:inherit;">
+              <article class="card">
+                <div class="card-tag">娛樂互動</div>
+                <h3>陪玩與娛樂相關職業</h3>
+                <p>遊戲陪玩、代打、虛擬戀人、桌遊陪玩、團康陪玩、網咖陪玩、遊戲主播等。</p>
+              </article>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1 -->
+    <section class="section section-alt" id="life-service">
+      <div class="container">
+        <div class="section-head">
+          <h2>一、生活管理與服務</h2>
+          <p class="muted">你如果是在幫助個人、家庭、居家生活、照護、美業....</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-tag">居家 / 家務</div>
+            <h3>到府與家務服務</h3>
+            <ul class="checklist">
+              <li>居家清潔</li>
+              <li>清潔人員</li>
+              <li>家政服務</li>
+              <li>到府煮飯</li>
+              <li>家事服務</li>
+              <li>私人管家</li>
+              <li>家庭管家</li>
+              <li>家庭經理</li>
+              <li>房務人員</li>
+              <li>旅宿房務</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">照護 / 陪伴</div>
+            <h3>照護型服務</h3>
+            <ul class="checklist">
+              <li>保姆</li>
+              <li>到府保姆</li>
+              <li>托育人員</li>
+              <li>兒童照顧</li>
+              <li>兒童陪伴</li>
+              <li>陪伴長者</li>
+              <li>長照服務員</li>
+              <li>照護助理</li>
+              <li>看護</li>
+              <li>居家護理</li>
+              <li>高齡照護助理</li>
+              <li>高齡照護規劃師</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">個人服務</div>
+            <h3>個人與生活支援</h3>
+            <ul class="checklist">
+              <li>生活助理</li>
+              <li>個人助理</li>
+              <li>行政助理</li>
+              <li>家庭助理</li>
+              <li>行程助理</li>
+              <li>生活管理助理</li>
+              <li>寵物保姆</li>
+              <li>寵物照護</li>
+              <li>寵物美容師</li>
+              <li>園藝師</li>
+              <li>花藝師</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">健康 / 美業</div>
+            <h3>美業與健康服務</h3>
+            <ul class="checklist">
+              <li>按摩師</li>
+              <li>SPA芳療師</li>
+              <li>健康管理師</li>
+              <li>營養師</li>
+              <li>健身教練</li>
+              <li>瑜伽教練</li>
+              <li>舞蹈教練</li>
+              <li>形象顧問</li>
+              <li>穿搭顧問</li>
+              <li>妝髮顧問</li>
+              <li>美甲師</li>
+              <li>美睫師</li>
+              <li>美容師</li>
+              <li>紋繡師</li>
+              <li>髮型設計師</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="section" id="consulting">
+      <div class="container">
+        <div class="section-head">
+          <h2>二、生活規劃與顧問</h2>
+          <p class="muted">如果你的工作是提供規劃、顧問、建議、教練、陪跑服務....</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-tag">財務 / 保險</div>
+            <h3>財務規劃類</h3>
+            <ul class="checklist">
+              <li>理財顧問</li>
+              <li>財務顧問</li>
+              <li>家庭財務規劃師</li>
+              <li>投資顧問</li>
+              <li>稅務顧問</li>
+              <li>稅務規劃師</li>
+              <li>記帳顧問</li>
+              <li>家庭記帳師</li>
+              <li>保險顧問</li>
+              <li>保險業務員</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">生涯 / 教育</div>
+            <h3>人生規劃類</h3>
+            <ul class="checklist">
+              <li>職涯顧問</li>
+              <li>履歷顧問</li>
+              <li>面試教練</li>
+              <li>升學顧問</li>
+              <li>留學顧問</li>
+              <li>教育顧問</li>
+              <li>家庭教育顧問</li>
+              <li>親職顧問</li>
+              <li>伴侶諮詢師</li>
+              <li>家庭諮詢師</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">心理 / 生活</div>
+            <h3>生活陪跑類</h3>
+            <ul class="checklist">
+              <li>心理諮詢師</li>
+              <li>壓力管理顧問</li>
+              <li>時間管理教練</li>
+              <li>習慣養成教練</li>
+              <li>個人生產力教練</li>
+              <li>生活規劃師</li>
+              <li>生活設計師</li>
+              <li>生活顧問</li>
+              <li>整合型生活顧問</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">品牌 / 事業</div>
+            <h3>商業顧問類</h3>
+            <ul class="checklist">
+              <li>不動產顧問</li>
+              <li>房產顧問</li>
+              <li>房地產投資顧問</li>
+              <li>室內設計師</li>
+              <li>空間設計師</li>
+              <li>退休規劃顧問</li>
+              <li>生前規劃師</li>
+              <li>創業顧問</li>
+              <li>品牌顧問</li>
+              <li>行銷顧問</li>
+              <li>SEO顧問</li>
+              <li>策略顧問</li>
+              <li>企業顧問</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="section section-alt" id="reminder-service">
+      <div class="container">
+        <div class="section-head">
+          <h2>三、提醒與生活服務</h2>
+          <p class="muted">提醒、安排、協調、活動執行、行政支援、代辦服務....</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-tag">提醒安排</div>
+            <h3>生活提醒型</h3>
+            <ul class="checklist">
+              <li>真人提醒服務</li>
+              <li>叫醒服務</li>
+              <li>生活提醒師</li>
+              <li>健康提醒</li>
+              <li>用藥提醒</li>
+              <li>行程提醒</li>
+              <li>行程規劃師</li>
+              <li>行程管理師</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">旅遊活動</div>
+            <h3>企劃統籌型</h3>
+            <ul class="checklist">
+              <li>旅行規劃師</li>
+              <li>旅遊顧問</li>
+              <li>私人導遊</li>
+              <li>活動企劃</li>
+              <li>活動統籌</li>
+              <li>活動主持</li>
+              <li>婚禮企劃</li>
+              <li>婚禮統籌</li>
+              <li>婚禮顧問</li>
+              <li>婚禮主持</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">客戶支援</div>
+            <h3>商務支援型</h3>
+            <ul class="checklist">
+              <li>客戶經理</li>
+              <li>專案經理</li>
+              <li>產品經理</li>
+              <li>App產品經理</li>
+              <li>使用者體驗設計師</li>
+              <li>UX設計師</li>
+              <li>接待員</li>
+              <li>客服顧問</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">行政代辦</div>
+            <h3>支援代辦型</h3>
+            <ul class="checklist">
+              <li>秘書</li>
+              <li>商務助理</li>
+              <li>會議安排</li>
+              <li>行政支援服務</li>
+              <li>跑腿代辦</li>
+              <li>代辦服務</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="section" id="creator">
+      <div class="container">
+        <div class="section-head">
+          <h2>四、內容創作與說書人</h2>
+          <p class="muted">如果你的工作是經營自媒體、寫作、拍片、發文、直播、主持、講故事....</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-tag">自媒體</div>
+            <h3>平台創作者</h3>
+            <ul class="checklist">
+              <li>YouTuber</li>
+              <li>IG創作者</li>
+              <li>Threads創作者</li>
+              <li>TikTok創作者</li>
+              <li>直播主</li>
+              <li>Podcast主持人</li>
+              <li>短影音創作者</li>
+              <li>網紅</li>
+              <li>KOL</li>
+              <li>社群經營者</li>
+              <li>社群小編</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">文字內容</div>
+            <h3>寫作創作型</h3>
+            <ul class="checklist">
+              <li>作家</li>
+              <li>小說作家</li>
+              <li>專欄作家</li>
+              <li>部落客</li>
+              <li>自媒體寫手</li>
+              <li>內容創作人</li>
+              <li>內容創作者</li>
+              <li>品牌故事寫手</li>
+              <li>廣告文案</li>
+              <li>企劃寫手</li>
+              <li>內容行銷寫手</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">講述表達</div>
+            <h3>聲音與主持型</h3>
+            <ul class="checklist">
+              <li>講師</li>
+              <li>課程講師</li>
+              <li>線上課程講師</li>
+              <li>培訓講師</li>
+              <li>導覽員</li>
+              <li>解說員</li>
+              <li>文化導覽</li>
+              <li>博物館導覽</li>
+              <li>主持人</li>
+              <li>活動主持</li>
+              <li>廣播主持</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">故事創作</div>
+            <h3>評論與敘事型</h3>
+            <ul class="checklist">
+              <li>配音員</li>
+              <li>旁白</li>
+              <li>影評人</li>
+              <li>書評人</li>
+              <li>說書人</li>
+              <li>說書型YouTuber</li>
+              <li>編劇</li>
+              <li>影視編劇</li>
+              <li>遊戲編劇</li>
+              <li>作詞人</li>
+              <li>歌詞創作</li>
+              <li>遊戲劇情設計</li>
+              <li>行銷策展人</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="section section-alt" id="ai-jobs">
+      <div class="container">
+        <div class="section-head">
+          <h2>五、AI相關職業</h2>
+          <p class="muted">AI、設計、數位創作、網站、程式、攝影、剪輯....</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-tag">AI 應用</div>
+            <h3>AI創作型</h3>
+            <ul class="checklist">
+              <li>AI落地師</li>
+              <li>AI顧問</li>
+              <li>AI導入顧問</li>
+              <li>AI藝術家</li>
+              <li>AI設計師</li>
+              <li>AI平面設計師</li>
+              <li>AI插畫家</li>
+              <li>AI影像創作者</li>
+              <li>AI影片製作師</li>
+              <li>AI動畫師</li>
+              <li>AI音樂製作人</li>
+              <li>AI寫作人</li>
+              <li>AI文案</li>
+              <li>AI內容創作者</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">AI 工具</div>
+            <h3>AI工具與系統型</h3>
+            <ul class="checklist">
+              <li>AI簡報設計師</li>
+              <li>AI教材設計師</li>
+              <li>AI課程設計師</li>
+              <li>AI品牌設計師</li>
+              <li>AI行銷企劃</li>
+              <li>AI社群行銷</li>
+              <li>AI產品設計師</li>
+              <li>AI遊戲設計師</li>
+              <li>AI建築設計師</li>
+              <li>AI室內設計師</li>
+              <li>AI工程設計師</li>
+              <li>AI應用開發師</li>
+              <li>AI自動化工程師</li>
+              <li>AI聊天機器人設計</li>
+              <li>AI提示工程師</li>
+              <li>Prompt工程師</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">設計影像</div>
+            <h3>視覺製作型</h3>
+            <ul class="checklist">
+              <li>平面設計師</li>
+              <li>攝影師</li>
+              <li>插畫家</li>
+              <li>品牌視覺設計師</li>
+              <li>商業攝影師</li>
+              <li>產品攝影師</li>
+              <li>影片剪輯師</li>
+              <li>動畫製作師</li>
+              <li>數位設計師</li>
+              <li>簡報設計師</li>
+              <li>社群素材設計師</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">網站程式</div>
+            <h3>技術開發型</h3>
+            <ul class="checklist">
+              <li>剪輯師</li>
+              <li>網頁設計師</li>
+              <li>UIUX設計師</li>
+              <li>程式工程師</li>
+              <li>網站工程師</li>
+              <li>前端工程師</li>
+              <li>後端工程師</li>
+              <li>全端工程師</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="section" id="declutter">
+      <div class="container">
+        <div class="section-head">
+          <h2>六、斷捨離</h2>
+          <p class="muted">整理、收納、斷捨離、搬家、轉售、文件整理....</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-tag">收納整理</div>
+            <h3>整理收納型</h3>
+            <ul class="checklist">
+              <li>斷捨離指導師</li>
+              <li>整理收納顧問</li>
+              <li>整理收納師</li>
+              <li>收納整理師</li>
+              <li>生活整理師</li>
+              <li>空間整理師</li>
+              <li>空間規劃師</li>
+              <li>整理心理師</li>
+              <li>收納顧問</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">搬家特殊</div>
+            <h3>規劃處理型</h3>
+            <ul class="checklist">
+              <li>搬家顧問</li>
+              <li>搬家規劃師</li>
+              <li>遺物整理師</li>
+              <li>生前整理師</li>
+              <li>企業整理顧問</li>
+              <li>辦公室整理師</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">文件資料</div>
+            <h3>數位整理型</h3>
+            <ul class="checklist">
+              <li>數位資料整理師</li>
+              <li>文件整理師</li>
+              <li>檔案整理服務</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">二手轉售</div>
+            <h3>物品整理延伸型</h3>
+            <ul class="checklist">
+              <li>二手轉售顧問</li>
+              <li>二手交易顧問</li>
+              <li>物品轉售顧問</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="section section-alt" id="translation">
+      <div class="container">
+        <div class="section-head">
+          <h2>七、翻譯</h2>
+          <p class="muted">翻譯不只是一種工作，而是很多種細分類型....</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-tag">文字翻譯</div>
+            <h3>文件翻譯型</h3>
+            <ul class="checklist">
+              <li>翻譯員</li>
+              <li>文學翻譯</li>
+              <li>專利翻譯</li>
+              <li>法律翻譯</li>
+              <li>商業翻譯</li>
+              <li>醫學翻譯</li>
+              <li>技術翻譯</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">口語教學</div>
+            <h3>語言服務型</h3>
+            <ul class="checklist">
+              <li>口譯員</li>
+              <li>語言顧問</li>
+              <li>語言教學講師</li>
+              <li>語言培訓講師</li>
+              <li>語言審校員</li>
+              <li>語言編輯</li>
+              <li>手語翻譯</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">媒體翻譯</div>
+            <h3>字幕與影視型</h3>
+            <ul class="checklist">
+              <li>字幕翻譯</li>
+              <li>遊戲翻譯</li>
+              <li>影視翻譯</li>
+              <li>廣告翻譯</li>
+              <li>創意翻譯</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="section" id="chatting">
+      <div class="container">
+        <div class="section-head">
+          <h2>八、陪聊相關職業</h2>
+          <p class="muted">陪聊、陪伴、情感支持、陪診....</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-tag">聊天互動</div>
+            <h3>線上陪聊型</h3>
+            <ul class="checklist">
+              <li>聊天主播</li>
+              <li>語音主播</li>
+              <li>語音聊天</li>
+              <li>陪聊員</li>
+              <li>線上陪聊</li>
+              <li>電話陪聊</li>
+              <li>社群聊天服務</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">情緒支持</div>
+            <h3>陪伴支持型</h3>
+            <ul class="checklist">
+              <li>情感陪伴師</li>
+              <li>心靈導師</li>
+              <li>聆聽師</li>
+              <li>心理陪伴</li>
+              <li>情感支持服務</li>
+              <li>唱歌陪聊</li>
+              <li>故事陪聊</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">實體陪同</div>
+            <h3>陪伴服務型</h3>
+            <ul class="checklist">
+              <li>陪伴師</li>
+              <li>老人陪伴</li>
+              <li>身障陪伴</li>
+              <li>陪診員</li>
+              <li>醫院陪診</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="section section-alt" id="gaming">
+      <div class="container">
+        <div class="section-head">
+          <h2>九、陪玩與娛樂相關職業</h2>
+          <p class="muted">遊戲、娛樂、互動、桌遊、電競、線上與線下陪玩....。</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-tag">遊戲互動</div>
+            <h3>遊戲陪玩型</h3>
+            <ul class="checklist">
+              <li>遊戲陪玩員</li>
+              <li>遊戲代打</li>
+              <li>遊戲主播</li>
+              <li>電競陪玩</li>
+              <li>遊戲教練</li>
+              <li>遊戲內容創作者</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">娛樂互動</div>
+            <h3>娛樂陪玩型</h3>
+            <ul class="checklist">
+              <li>虛擬戀人</li>
+              <li>娛樂陪玩</li>
+              <li>活動互動主持</li>
+              <li>娛樂主持</li>
+              <li>實況主</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-tag">線下娛樂</div>
+            <h3>桌遊與實體型</h3>
+            <ul class="checklist">
+              <li>桌遊陪玩</li>
+              <li>桌遊主持</li>
+              <li>主機遊戲陪玩</li>
+              <li>線下陪玩</li>
+              <li>團康陪玩</li>
+              <li>網咖陪玩</li>
+              <li>SG</li>
+              <li>PG</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 最後 -->
+    <section class="section">
+      <div class="container">
+        <div class="panel">
+          <h2>如果你的職業沒有在上面</h2>
+          <p>
+            如果你的職業沒有在列表中，
+            <strong>多數自由工作者、自營作業、接案工作者仍然可能符合加入資格。</strong>
+          </p>
+          <p>
+            建議直接透過官方 LINE 詢問，我們會協助判斷是否可以加入職業工會。
+          </p>
+
+          <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a class="btn btn-primary" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">LINE 詢問是否可以加入</a>
+            <a class="btn btn-ghost" href="join.html">查看加入方式</a>
+            <a class="btn btn-primary" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">立即線上投保</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="floating">
+    <a class="float-btn line" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">LINE</a>
+    <a class="float-btn phone" href="tel:034941777">電話</a>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-brand">桃園市生活助理從業人員職業工會</div>
+        <div class="muted">
+          地址：桃園市中壢區民權路132號3樓｜電話：03-494-1777｜LINE：@097srncp
+        </div>
+      </div>
+
+      <div>
+        <a href="index.html">回首頁</a><br>
+        <a href="join.html">加入方式</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    function checkJob() {
+      const job = document.getElementById("jobInput").value.trim();
+      const result = document.getElementById("jobResult");
+
+      if (job === "") {
+        result.innerHTML = "請先輸入你的職業名稱";
+        return;
+      }
+
+      result.innerHTML = `
+        ✔ 你的職業「${job}」通常可以加入職業工會
+        <br><br>
+        <a href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener" class="btn btn-primary">
+          立即 LINE 詢問加入
+        </a>
+      `;
+    }
+  </script>
+</body>
+</html>
