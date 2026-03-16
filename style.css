@@ -538,87 +538,130 @@ details p{
   .brand{ min-width: unset; }
 }
 /* =========================
-   手機版優化
-   電腦版維持原樣
+   手機版：修正上方太大、卡住、選單難用
 ========================= */
 @media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    font-size: 16px;
     overflow-x: hidden;
   }
 
-  .container {
-    width: 92%;
-    max-width: 100%;
-    margin: 0 auto;
+  /* 手機先把最上方資訊列藏起來，避免佔太多空間 */
+  .topbar {
+    display: none !important;
   }
 
-  .topbar-inner,
-  .header-inner,
-  .footer-inner,
-  .hero-inner,
-  .contact-grid {
-    display: block;
-  }
-
-  .topbar-inner {
-    text-align: center;
-    line-height: 1.8;
-  }
-
+  /* Header 不要太高 */
   .header {
-    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 8px 0 !important;
   }
 
+  .header-inner {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: auto !important;
+  }
+
+  /* Logo 區縮小 */
   .brand {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border-radius: 12px;
   }
 
   .brand-title {
-    font-size: 18px;
-    line-height: 1.4;
+    font-size: 15px !important;
+    line-height: 1.3 !important;
   }
 
   .brand-sub {
-    font-size: 12px;
+    display: none !important;
   }
 
+  /* 桌機選單手機隱藏 */
   .nav {
-    display: none;
+    display: none !important;
   }
 
+  /* 手機右上按鈕區簡化 */
   .nav-actions {
-    margin-top: 10px;
-    display: flex;
+    display: flex !important;
+    align-items: center;
     gap: 8px;
-    flex-wrap: wrap;
+    margin-top: 0 !important;
+    flex-shrink: 0;
+  }
+
+  /* 手機只留主要按鈕，不要太大 */
+  .nav-actions .btn {
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    border-radius: 10px !important;
+    white-space: nowrap;
+  }
+
+  /* 如果你覺得右上主按鈕還是太大，可以只留漢堡 */
+  .nav-actions .btn-ghost {
+    display: none !important;
   }
 
   .hamburger {
-    display: inline-block;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    background: #fff;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  /* 手機選單改成往下展開，不要擠內容 */
+  .mobile-menu {
+    margin-top: 10px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 8px 14px 14px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
   }
 
   .mobile-menu[hidden] {
     display: none !important;
   }
 
-  .mobile-menu {
-    margin-top: 12px;
-    background: #fff;
-    border-radius: 16px;
-    padding: 14px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  }
-
   .mobile-link {
     display: block;
-    padding: 12px 0;
+    padding: 13px 2px;
     border-bottom: 1px solid #eee;
     text-decoration: none;
     color: inherit;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .mobile-link:last-child {
@@ -626,108 +669,125 @@ details p{
   }
 
   .mobile-cta {
-    margin-top: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    margin-top: 12px;
   }
 
+  .mobile-cta .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* 每頁最上面區塊縮小，不要一開始就很厚 */
   .section {
-    padding: 36px 0;
+    padding: 28px 0 !important;
   }
 
-  .section-head h1,
-  .section-head h2,
-  .hero h1 {
-    font-size: 30px;
-    line-height: 1.25;
+  .section:first-of-type {
+    padding-top: 22px !important;
   }
 
-  .lead,
+  .section-head {
+    margin-bottom: 18px !important;
+  }
+
+  .section-head h1 {
+    font-size: 30px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .section-head h2 {
+    font-size: 24px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 10px !important;
+  }
+
   .section-head p,
+  .muted,
   .card p,
   .panel p {
-    font-size: 16px;
-    line-height: 1.8;
+    font-size: 15px !important;
+    line-height: 1.75 !important;
   }
 
+  /* Hero / 第一區按鈕不要太巨大 */
+  .btn,
+  .cta-button {
+    min-height: 44px;
+  }
+
+  /* 格子改單欄，避免太擠 */
   .grid-3,
   .grid-2 {
-    display: grid;
+    display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: 16px;
+    gap: 14px !important;
   }
 
   .card,
-  .panel,
-  .contact-card {
-    padding: 20px 18px;
-    border-radius: 18px;
+  .panel {
+    padding: 18px 16px !important;
+    border-radius: 18px !important;
   }
 
   .card h3,
   .panel h3 {
-    font-size: 22px;
-    line-height: 1.4;
+    font-size: 20px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 10px !important;
   }
 
   .card-tag,
   .pill {
-    font-size: 13px;
-    padding: 8px 12px;
+    font-size: 12px !important;
+    padding: 7px 11px !important;
+    border-radius: 999px !important;
   }
 
-  .btn,
-  .cta-button {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-    padding: 14px 16px;
-    font-size: 16px;
-    border-radius: 12px;
-  }
-
-  .hero-actions,
-  .nav-actions,
-  .mobile-cta,
-  .footer-right {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
+  /* checklist 字距與換行更舒服 */
   .checklist {
-    padding-left: 18px;
+    padding-left: 18px !important;
+    column-count: 1 !important;
   }
 
   .checklist li {
-    margin-bottom: 8px;
-    line-height: 1.7;
+    margin-bottom: 8px !important;
+    line-height: 1.7 !important;
   }
 
-  .faq details {
-    padding: 14px 16px;
-    border-radius: 14px;
-    margin-bottom: 12px;
-  }
-
-  .faq summary {
-    font-size: 17px;
-    line-height: 1.5;
-    font-weight: 700;
-  }
-
+  /* 浮動按鈕縮小，避免遮住內容 */
   .floating {
-    right: 12px;
-    bottom: 12px;
+    right: 12px !important;
+    bottom: 12px !important;
+    gap: 8px !important;
   }
 
   .float-btn {
-    padding: 12px 14px;
-    font-size: 14px;
+    padding: 11px 13px !important;
+    font-size: 13px !important;
+    border-radius: 999px !important;
   }
 
+  /* 頁尾不要太擠 */
+  .site-footer,
   footer {
-    padding-bottom: 90px;
+    padding: 28px 0 84px !important;
+  }
+
+  .footer-inner {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* 點 anchor 跳轉時，避免被 sticky header 蓋住 */
+  section[id] {
+    scroll-margin-top: 90px;
   }
 }
