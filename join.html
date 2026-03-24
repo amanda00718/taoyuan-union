@@ -3,14 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/favicon.ico">
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<!-- SEO 與原始來源 -->
+<link rel="canonical" href="https://tynunion.com/join.html" />
+<meta name="robots" content="index,follow,noarchive">
+
+<!-- favicon -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<!-- SEO 標題與描述 -->
 <title>職業工會怎麼加入？｜桃園勞保申請流程＋條件</title>
-<meta name="description" content="加入桃園市生活助理從業人員職業工會｜了解入會資格、申請流程、線上投保與政府補助40%勞健保資訊。">
+<meta name="description" content="職業工會怎麼加入？桃園市生活助理從業人員職業工會整理入會資格、申請流程、LINE 線上投保、現場辦理與政府補助 40% 勞健保資訊。">
+
+<!-- 社群分享 -->
+<meta property="og:title" content="職業工會怎麼加入？｜桃園勞保申請流程＋條件">
+<meta property="og:description" content="整理入會資格、申請流程、LINE 線上投保、現場辦理與政府補助 40% 勞健保資訊。">
+<meta property="og:url" content="https://tynunion.com/join.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="桃園市生活助理從業人員職業工會">
+<meta property="og:image" content="https://tynunion.com/favicon.png">
+
+<!-- 結構化資料 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "職業工會怎麼加入？｜桃園勞保申請流程＋條件",
+  "url": "https://tynunion.com/join.html",
+  "description": "整理職業工會入會資格、申請流程、LINE 線上投保、現場辦理與政府補助 40% 勞健保資訊。"
+}
+</script>
+
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body oncontextmenu="return false;">
 
 <div class="topbar">
   <div class="container topbar-inner">
@@ -28,7 +57,7 @@
 <header class="header">
   <div class="container header-inner">
     <a class="brand" href="index.html">
-      <img src="favicon.png" class="brand-logo">
+      <img src="favicon.png" class="brand-logo" alt="桃園市生活助理從業人員職業工會 Logo" draggable="false" oncontextmenu="return false;">
       <span class="brand-text">
         <span class="brand-title">桃園市生活助理從業人員職業工會</span>
         <span class="brand-sub">Taoyuan Living Assistant Labor Union</span>
@@ -70,6 +99,14 @@
   <section class="section">
     <div class="container">
       <div class="section-head">
+        <h1>職業工會怎麼加入？</h1>
+        <p class="muted">
+          如果你正在找桃園職業工會加入方式，這頁幫你整理入會資格、申請流程、
+          LINE 線上投保、現場辦理與保費重點，讓你快速知道下一步。
+        </p>
+      </div>
+
+      <div class="section-head" style="margin-top:20px;">
         <h2>入會資格</h2>
         <p class="muted">
           凡從事生活助理相關工作、自由接案、自營作業或相關服務產業之工作者，
@@ -216,9 +253,26 @@
       <a href="knowledge.html">勞健保知識區</a>
       <a href="faq.html">常見問題</a>
     </div>
+
+    <div style="width:100%; margin-top:18px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.12); font-size:14px; color:#bfc7d5; text-align:center;">
+      © 2026 桃園市生活助理從業人員職業工會（TYN Union）. All rights reserved. 未經授權禁止轉載、重製、擷取與商業使用。
+    </div>
   </div>
 </footer>
 
 <script src="app.js"></script>
+
+<script>
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+
+  document.onkeydown = function(e) {
+    if (e.keyCode === 123) return false;
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false;
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) return false;
+    if (e.ctrlKey && e.keyCode === 85) return false;
+  };
+</script>
 </body>
 </html>
