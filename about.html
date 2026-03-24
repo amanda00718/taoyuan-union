@@ -3,14 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/favicon.ico">
+
+  <!-- SEO 與原始來源 -->
+  <link rel="canonical" href="https://tynunion.com/about.html" />
+  <meta name="robots" content="index,follow,noarchive">
+
+  <!-- favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <title>桃園職業工會介紹｜生活助理從業人員職業工會</title>
-  <meta name="description" content="桃園市生活助理從業人員職業工會｜依法設立的在地勞工組織，協助會員參與勞保、享有福利資源與專業服務。" />
+
+  <!-- SEO 標題與描述 -->
+  <title>桃園職業工會介紹｜生活助理從業人員職業工會｜38年會務經驗</title>
+  <meta name="description" content="桃園職業工會介紹｜桃園市生活助理從業人員職業工會為依法設立的在地勞工組織，擁有 38 年會務經驗，協助會員辦理勞保、健保、團保與相關服務。">
+
+  <!-- 社群分享 -->
+  <meta property="og:title" content="桃園職業工會介紹｜生活助理從業人員職業工會｜38年會務經驗">
+  <meta property="og:description" content="桃園市生活助理從業人員職業工會為依法設立的在地勞工組織，擁有 38 年會務經驗，協助會員辦理勞保、健保、團保與相關服務。">
+  <meta property="og:url" content="https://tynunion.com/about.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="桃園市生活助理從業人員職業工會">
+  <meta property="og:image" content="https://tynunion.com/favicon.png">
+
+  <!-- 結構化資料 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "桃園職業工會介紹｜生活助理從業人員職業工會",
+    "url": "https://tynunion.com/about.html",
+    "description": "桃園市生活助理從業人員職業工會為依法設立的在地勞工組織，協助會員參與勞保、享有福利資源與專業服務。"
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body oncontextmenu="return false;">
   <div class="topbar">
     <div class="container topbar-inner">
       <div>
@@ -27,7 +56,7 @@
   <header class="header">
     <div class="container header-inner">
       <a class="brand" href="index.html">
-        <img src="favicon.png" class="brand-logo">
+        <img src="favicon.png" class="brand-logo" alt="桃園市生活助理從業人員職業工會 Logo" draggable="false" oncontextmenu="return false;">
         <span class="brand-text">
           <span class="brand-title">桃園市生活助理從業人員職業工會</span>
           <span class="brand-sub">Taoyuan Living Assistant Labor Union</span>
@@ -70,14 +99,14 @@
     <section class="section">
       <div class="container">
         <div class="section-head">
-          <h2>關於我們</h2>
+          <h1>關於我們</h1>
           <p class="muted">
             桃園市生活助理從業人員職業工會是依法設立的在地勞工組織，協助會員爭取權益、參與勞保、享有福利資源，並積極推動職業訓練與產業升級。
           </p>
         </div>
 
         <div class="panel">
-          <h3>歡迎您的加入</h3>
+          <h2>歡迎您的加入</h2>
           <p>
             我們有 38 年工作經驗的會務工作人員，服務親切、有耐心。本會專為無一定雇主、自營作業人員服務，協助辦理【勞保、健保】。
           </p>
@@ -208,9 +237,26 @@
         <a href="join.html">加入方式</a>
         <a href="knowledge.html">勞健保知識區</a>
       </div>
+
+      <div style="width:100%; margin-top:18px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.12); font-size:14px; color:#bfc7d5; text-align:center;">
+        © 2026 桃園市生活助理從業人員職業工會（TYN Union）. All rights reserved. 未經授權禁止轉載、重製、擷取與商業使用。
+      </div>
     </div>
   </footer>
 
   <script src="app.js"></script>
+
+  <script>
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    document.onkeydown = function(e) {
+      if (e.keyCode === 123) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 74) return false;
+      if (e.ctrlKey && e.keyCode === 85) return false;
+    };
+  </script>
 </body>
 </html>
