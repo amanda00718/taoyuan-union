@@ -3,14 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/favicon.ico">
+
+  <!-- SEO 與原始來源 -->
+  <link rel="canonical" href="https://tynunion.com/insurance.html" />
+  <meta name="robots" content="index,follow,noarchive">
+
+  <!-- favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- SEO 標題與描述 -->
   <title>職業工會團體保險｜意外險・醫療險方案｜桃園市生活助理從業人員職業工會</title>
-  <meta name="description" content="會員專屬團體保險方案｜意外保障100萬、意外保障200萬、醫療團保，會員與眷屬可參考。" />
+  <meta name="description" content="會員專屬團體保險方案，整理意外保障100萬、意外保障200萬、醫療團保等內容，會員與眷屬可參考，詳細條件可再透過 LINE 詢問。">
+
+  <!-- 社群分享 -->
+  <meta property="og:title" content="職業工會團體保險｜意外險・醫療險方案｜桃園市生活助理從業人員職業工會">
+  <meta property="og:description" content="會員專屬團體保險方案，整理意外保障100萬、意外保障200萬、醫療團保等內容，會員與眷屬可參考。">
+  <meta property="og:url" content="https://tynunion.com/insurance.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="桃園市生活助理從業人員職業工會">
+  <meta property="og:image" content="https://tynunion.com/favicon.png">
+
+  <!-- 結構化資料 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "職業工會團體保險｜意外險・醫療險方案",
+    "url": "https://tynunion.com/insurance.html",
+    "description": "整理會員專屬團體保險方案，包含意外保障100萬、意外保障200萬與醫療團保等內容。"
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body oncontextmenu="return false;">
 
   <div class="topbar">
     <div class="container topbar-inner">
@@ -28,7 +57,7 @@
   <header class="header">
     <div class="container header-inner">
       <a class="brand" href="index.html">
-        <img src="favicon.png" class="brand-logo">
+        <img src="favicon.png" class="brand-logo" alt="桃園市生活助理從業人員職業工會 Logo" draggable="false" oncontextmenu="return false;">
         <span class="brand-text">
           <span class="brand-title">桃園市生活助理從業人員職業工會</span>
           <span class="brand-sub">Taoyuan Living Assistant Labor Union</span>
@@ -70,14 +99,14 @@
     <section class="section">
       <div class="container">
         <div class="section-head">
-          <h2>會員專屬團體保險方案</h2>
+          <h1>會員專屬團體保險方案</h1>
           <p class="muted">以下為你提供的三張方案整理版，適合放在網站作為團保介紹頁。</p>
         </div>
 
         <div class="grid-3">
           <article class="card">
             <div class="card-tag">方案一</div>
-            <h3>意外保障 100 萬</h3>
+            <h2>意外保障 100 萬</h2>
             <p>一般意外身故保險金 100 萬元，並含公共交通、天災、火災等相關意外保障。</p>
             <p><strong>月繳保費：100 元</strong></p>
             <ul class="checklist">
@@ -91,7 +120,7 @@
 
           <article class="card">
             <div class="card-tag">方案二</div>
-            <h3>意外保障 200 萬</h3>
+            <h2>意外保障 200 萬</h2>
             <p>一般意外身故保險金 200 萬元，並含大眾運輸、颱風洪水、電梯、火災等保障。</p>
             <p><strong>月繳保費：230 元</strong></p>
             <ul class="checklist">
@@ -105,7 +134,7 @@
 
           <article class="card">
             <div class="card-tag">方案三</div>
-            <h3>遠雄醫療團保</h3>
+            <h2>遠雄醫療團保</h2>
             <p>含團體一年定期壽險、意外住院日額、重大疾病與癌症相關住院手術保障。</p>
             <p><strong>每月保費：100 元</strong></p>
             <ul class="checklist">
@@ -119,7 +148,7 @@
         </div>
 
         <div class="panel" style="margin-top:18px;">
-          <h3>補充說明</h3>
+          <h2>補充說明</h2>
           <p>
             團保方案的實際承保條件、年齡限制、保障細節與是否適用會員眷屬，建議直接透過官方 LINE 詢問最新版本。
           </p>
@@ -148,9 +177,26 @@
         <a href="join.html">加入方式</a>
         <a href="faq.html">常見問題</a>
       </div>
+
+      <div style="width:100%; margin-top:18px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.12); font-size:14px; color:#bfc7d5; text-align:center;">
+        © 2026 桃園市生活助理從業人員職業工會（TYN Union）. All rights reserved. 未經授權禁止轉載、重製、擷取與商業使用。
+      </div>
     </div>
   </footer>
 
   <script src="app.js"></script>
+
+  <script>
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    document.onkeydown = function(e) {
+      if (e.keyCode === 123) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 74) return false;
+      if (e.ctrlKey && e.keyCode === 85) return false;
+    };
+  </script>
 </body>
 </html>
