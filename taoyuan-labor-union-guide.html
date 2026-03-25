@@ -3,14 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/favicon.ico">
+
+  <!-- SEO 與原始來源 -->
+  <link rel="canonical" href="https://tynunion.com/taoyuan-labor-union-guide.html" />
+  <meta name="robots" content="index,follow,noarchive,max-image-preview:large">
+
+  <!-- favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- SEO 標題與描述 -->
   <title>桃園職業工會懶人包｜沒有公司如何保勞保一次看</title>
   <meta name="description" content="桃園職業工會懶人包，整理沒有公司怎麼保勞保、自由工作者勞保、接案工作者、勞保中斷與加入方式，讓你一次看懂。">
+
+  <!-- 社群分享 -->
+  <meta property="og:title" content="桃園職業工會懶人包｜沒有公司如何保勞保一次看">
+  <meta property="og:description" content="整理沒有公司怎麼保勞保、自由工作者勞保、接案工作者、勞保中斷與加入方式，讓你一次看懂。">
+  <meta property="og:url" content="https://tynunion.com/taoyuan-labor-union-guide.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="桃園市生活助理從業人員職業工會">
+  <meta property="og:image" content="https://tynunion.com/favicon.png">
+
+  <!-- 結構化資料 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "桃園職業工會懶人包｜沒有公司如何保勞保一次看",
+    "description": "整理桃園職業工會常見問題，包括沒有公司怎麼保勞保、自由工作者勞保、接案工作者、勞保中斷與加入方式。",
+    "author": {
+      "@type": "Organization",
+      "name": "桃園市生活助理從業人員職業工會"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "桃園市生活助理從業人員職業工會"
+    },
+    "mainEntityOfPage": "https://tynunion.com/taoyuan-labor-union-guide.html"
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body oncontextmenu="return false;">
 
   <div class="topbar">
     <div class="container topbar-inner">
@@ -28,7 +65,7 @@
   <header class="header">
     <div class="container header-inner">
       <a class="brand" href="index.html">
-        <img src="favicon.png" class="brand-logo" alt="TYN Union Logo">
+        <img src="favicon.png" class="brand-logo" alt="桃園市生活助理從業人員職業工會 Logo" draggable="false" oncontextmenu="return false;">
         <span class="brand-text">
           <span class="brand-title">桃園市生活助理從業人員職業工會</span>
           <span class="brand-sub">Taoyuan Living Assistant Labor Union</span>
@@ -77,6 +114,15 @@
             自由工作者怎麼辦、勞保中斷怎麼處理，這頁幫你一次整理。
           </p>
         </div>
+
+        <p style="margin-top:10px;">
+          本頁整理桃園職業工會相關重點，包含：
+          <a href="taoyuan-union.html">桃園職業工會推薦</a>、
+          <a href="no-company-labor-insurance.html">沒有公司怎麼保勞保</a>、
+          <a href="freelancer-labor-insurance.html">自由工作者勞保</a>、
+          <a href="labor-insurance-interrupted.html">勞保中斷處理</a>、
+          <a href="gig-worker-labor-insurance.html">接案工作者勞保</a>等完整內容。
+        </p>
 
         <div class="panel">
           <p>
@@ -172,7 +218,13 @@
     <div class="container footer-inner">
       <div>
         <div class="footer-brand">桃園市生活助理從業人員職業工會</div>
-        <div class="muted">地址：桃園市中壢區民權路132號3樓｜電話：03-494-1777｜LINE：@097srncp</div>
+        <div class="muted">
+          地址：
+          <a href="https://maps.app.goo.gl/bvnfB5FHS5YsJ8V18" target="_blank" rel="noopener">
+            桃園市中壢區民權路132號3樓（點我導航）
+          </a>
+          ｜電話：03-494-1777｜LINE：@097srncp
+        </div>
       </div>
       <div class="footer-right">
         <a href="index.html">回首頁</a>
@@ -180,9 +232,26 @@
         <a href="join.html">加入方式</a>
         <a href="faq.html">常見問題</a>
       </div>
+
+      <div style="width:100%; margin-top:18px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.12); font-size:14px; color:#bfc7d5; text-align:center;">
+        © 2026 桃園市生活助理從業人員職業工會（TYN Union）. All rights reserved. 未經授權禁止轉載、重製、擷取與商業使用。
+      </div>
     </div>
   </footer>
 
   <script src="app.js"></script>
+
+  <script>
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    document.onkeydown = function(e) {
+      if (e.keyCode === 123) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 74) return false;
+      if (e.ctrlKey && e.keyCode === 85) return false;
+    };
+  </script>
 </body>
 </html>
