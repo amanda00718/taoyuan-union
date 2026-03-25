@@ -1,16 +1,45 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO 與原始來源 -->
+  <link rel="canonical" href="https://tynunion.com/longtan-union.html" />
+  <meta name="robots" content="index,follow,noarchive">
+
+  <!-- favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<title>龍潭職業工會推薦｜勞保快速申請</title>
-<meta name="description" content="龍潭職業工會推薦，如果你在龍潭工作但沒有固定雇主，例如自由工作者、接案工作者、自營作業者，可以先了解是否適合透過職業工會投保勞保與健保。" />
-<link rel="stylesheet" href="style.css" />
+
+  <!-- SEO 標題與描述 -->
+  <title>龍潭職業工會推薦｜勞保快速申請</title>
+  <meta name="description" content="龍潭職業工會推薦，如果你在龍潭工作但沒有固定雇主，例如自由工作者、接案工作者或自營作業者，可以先了解是否適合透過職業工會投保勞保與健保。">
+
+  <!-- 社群分享 -->
+  <meta property="og:title" content="龍潭職業工會推薦｜勞保快速申請">
+  <meta property="og:description" content="如果你在龍潭工作但沒有固定雇主，例如自由工作者、接案工作者或自營作業者，可以先了解是否適合透過職業工會投保勞保與健保。">
+  <meta property="og:url" content="https://tynunion.com/longtan-union.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="桃園市生活助理從業人員職業工會">
+  <meta property="og:image" content="https://tynunion.com/favicon.png">
+
+  <!-- 結構化資料 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "龍潭職業工會推薦｜勞保快速申請",
+    "url": "https://tynunion.com/longtan-union.html",
+    "description": "整理龍潭職業工會常見加入對象、勞保申請說明與詢問方向，適合自由工作者、接案工作者與自營作業者參考。"
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body oncontextmenu="return false;">
 
 <div class="topbar">
   <div class="container topbar-inner">
@@ -28,7 +57,7 @@
 <header class="header">
   <div class="container header-inner">
     <a class="brand" href="index.html">
-      <img src="favicon.png" class="brand-logo">
+      <img src="favicon.png" class="brand-logo" alt="桃園市生活助理從業人員職業工會 Logo" draggable="false" oncontextmenu="return false;">
       <span class="brand-text">
         <span class="brand-title">桃園市生活助理從業人員職業工會</span>
         <span class="brand-sub">Taoyuan Living Assistant Labor Union</span>
@@ -176,7 +205,13 @@
   <div class="container footer-inner">
     <div>
       <div class="footer-brand">桃園市生活助理從業人員職業工會</div>
-      <div class="muted">地址：桃園市中壢區民權路132號3樓｜電話：03-494-1777｜LINE：@097srncp</div>
+      <div class="muted">
+        地址：
+        <a href="https://maps.app.goo.gl/bvnfB5FHS5YsJ8V18" target="_blank" rel="noopener">
+          桃園市中壢區民權路132號3樓（點我導航）
+        </a>
+        ｜電話：03-494-1777｜LINE：@097srncp
+      </div>
     </div>
 
     <div class="footer-right">
@@ -185,9 +220,26 @@
       <a href="join.html">加入方式</a>
       <a href="faq.html">常見問題</a>
     </div>
+
+    <div style="width:100%; margin-top:18px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.12); font-size:14px; color:#bfc7d5; text-align:center;">
+      © 2026 桃園市生活助理從業人員職業工會（TYN Union）. All rights reserved. 未經授權禁止轉載、重製、擷取與商業使用。
+    </div>
   </div>
 </footer>
 
 <script src="app.js"></script>
+
+<script>
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+
+  document.onkeydown = function(e) {
+    if (e.keyCode === 123) return false;
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false;
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) return false;
+    if (e.ctrlKey && e.keyCode === 85) return false;
+  };
+</script>
 </body>
 </html>
