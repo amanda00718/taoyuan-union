@@ -3,14 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/favicon.ico">
+
+  <!-- SEO 與原始來源 -->
+  <link rel="canonical" href="https://tynunion.com/gig-worker-labor-insurance.html" />
+  <meta name="robots" content="index,follow,noarchive">
+
+  <!-- favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- SEO 標題與描述 -->
   <title>接案工作者勞保怎麼辦？｜自由接案、個人接案必看</title>
   <meta name="description" content="接案工作者勞保怎麼辦？如果你沒有固定雇主，但長期接案、有實際工作內容與收入，可先了解是否適合透過職業工會評估勞保與健保方式。">
+
+  <!-- 社群分享 -->
+  <meta property="og:title" content="接案工作者勞保怎麼辦？｜自由接案、個人接案必看">
+  <meta property="og:description" content="如果你沒有固定雇主，但長期接案、有實際工作內容與收入，可先了解是否適合透過職業工會評估勞保與健保方式。">
+  <meta property="og:url" content="https://tynunion.com/gig-worker-labor-insurance.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="桃園市生活助理從業人員職業工會">
+  <meta property="og:image" content="https://tynunion.com/favicon.png">
+
+  <!-- 結構化資料 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "接案工作者勞保怎麼辦？｜自由接案、個人接案必看",
+    "url": "https://tynunion.com/gig-worker-labor-insurance.html",
+    "description": "整理接案工作者、個人接案者、數位接案與個人專業服務常見的勞保與健保問題。"
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body oncontextmenu="return false;">
 
   <div class="topbar">
     <div class="container topbar-inner">
@@ -28,7 +57,7 @@
   <header class="header">
     <div class="container header-inner">
       <a class="brand" href="index.html">
-        <img src="favicon.png" class="brand-logo" alt="TYN Union Logo">
+        <img src="favicon.png" class="brand-logo" alt="桃園市生活助理從業人員職業工會 Logo" draggable="false" oncontextmenu="return false;">
         <span class="brand-text">
           <span class="brand-title">桃園市生活助理從業人員職業工會</span>
           <span class="brand-sub">Taoyuan Living Assistant Labor Union</span>
@@ -104,19 +133,19 @@
         <div class="grid-3">
           <article class="card">
             <div class="card-tag">合法立案</div>
-            <h3>依法設立工會</h3>
+            <h2>依法設立工會</h2>
             <p>提供勞保、健保與相關制度說明，先了解再決定。</p>
           </article>
 
           <article class="card">
             <div class="card-tag">在地服務</div>
-            <h3>桃園中壢實體服務</h3>
+            <h2>桃園中壢實體服務</h2>
             <p>有實體地址與聯絡方式，資訊透明，可電話與 LINE 詢問。</p>
           </article>
 
           <article class="card">
             <div class="card-tag">專人協助</div>
-            <h3>先判斷再處理</h3>
+            <h2>先判斷再處理</h2>
             <p>先確認你的接案型態，再協助你了解適合的方向。</p>
           </article>
         </div>
@@ -282,9 +311,26 @@
         <a href="join.html">加入方式</a>
         <a href="faq.html">常見問題</a>
       </div>
+
+      <div style="width:100%; margin-top:18px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.12); font-size:14px; color:#bfc7d5; text-align:center;">
+        © 2026 桃園市生活助理從業人員職業工會（TYN Union）. All rights reserved. 未經授權禁止轉載、重製、擷取與商業使用。
+      </div>
     </div>
   </footer>
 
   <script src="app.js"></script>
+
+  <script>
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    document.onkeydown = function(e) {
+      if (e.keyCode === 123) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 74) return false;
+      if (e.ctrlKey && e.keyCode === 85) return false;
+    };
+  </script>
 </body>
 </html>
