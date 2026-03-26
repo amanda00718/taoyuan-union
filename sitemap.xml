@@ -1,100 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- 首頁（最高權重） -->
   <url>
     <loc>https://tynunion.com/</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
 
+  <!-- 核心頁 -->
   <url>
     <loc>https://tynunion.com/about.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tynunion.com/jobs.html</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
   </url>
 
   <url>
     <loc>https://tynunion.com/join.html</loc>
+    <priority>0.95</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://tynunion.com/jobs.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
     <loc>https://tynunion.com/knowledge.html</loc>
+    <priority>0.85</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
     <loc>https://tynunion.com/insurance.html</loc>
+    <priority>0.85</priority>
+    <changefreq>monthly</changefreq>
   </url>
 
   <url>
     <loc>https://tynunion.com/faq.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
   </url>
 
+  <!-- 核心SEO文章 -->
   <url>
-    <loc>https://tynunion.com/taoyuan-union.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tynunion.com/taoyuan-labor-insurance.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tynunion.com/taoyuan-labor-union.html</loc>
+    <loc>https://tynunion.com/no-company-labor-insurance.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
     <loc>https://tynunion.com/freelancer-labor-insurance.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tynunion.com/no-company-labor-insurance.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
     <loc>https://tynunion.com/labor-insurance-interrupted.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
-    <loc>https://tynunion.com/self-employed-labor-insurance.html</loc>
+    <loc>https://tynunion.com/taoyuan-labor-union.html</loc>
+    <priority>0.95</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
+  <!-- 地區頁（主戰場） -->
   <url>
-    <loc>https://tynunion.com/gig-worker-labor-insurance.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tynunion.com/no-job-labor-insurance.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tynunion.com/taoyuan-labor-union-comparison.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tynunion.com/taoyuan-labor-union-fast.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tynunion.com/taoyuan-labor-union-guide.html</loc>
+    <loc>https://tynunion.com/taoyuan-union.html</loc>
+    <priority>0.95</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
     <loc>https://tynunion.com/zhongli-union.html</loc>
+    <priority>0.95</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
     <loc>https://tynunion.com/pingzhen-union.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tynunion.com/taoyuan-district-union.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
     <loc>https://tynunion.com/bade-union.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
   <url>
-    <loc>https://tynunion.com/longtan-union.html</loc>
+    <loc>https://tynunion.com/yangmei-union.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://tynunion.com/guishan-union.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://tynunion.com/luzhu-union.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://tynunion.com/dayuan-union.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://tynunion.com/guanyin-union.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://tynunion.com/daxi-union.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://tynunion.com/xinwu-union.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://tynunion.com/fuxing-union.html</loc>
+    <priority>0.85</priority>
+    <changefreq>weekly</changefreq>
   </url>
 
 </urlset>
