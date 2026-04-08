@@ -627,96 +627,60 @@ grid-template-columns:1fr !important;
 }
 
 /* =========================
-🔥 HEADER 最終穩定版（覆蓋用）
+🔥 HEADER 最終修復（核心）
 ========================= */
 
-/* Header 整體 */
-.header{
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(120,150,200,0.12);
-}
-
-/* Header 排列 */
-.header-inner{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-/* LOGO區（重點修正） */
+/* LOGO不要撐爆 */
 .brand{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: unset !important;   /* 🔥 關鍵修正 */
-  max-width: 240px;             /* 限制寬度 */
-  overflow: hidden;
+  min-width: unset !important;
+  max-width: 220px;
 }
 
-/* LOGO大小 */
+/* LOGO縮小 */
 .brand-logo{
-  width: 42px !important;
-  height: 42px !important;
+  width: 44px !important;
+  height: 44px !important;
 }
 
-/* 標題 */
+/* 文字避免撐開 */
 .brand-title{
-  font-size: 14px;
-  font-weight: 800;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* 副標 */
-.brand-sub{
-  font-size: 11px;
-  color: var(--muted);
-}
-
-/* 導覽列（最大修正） */
+/* 導覽區重新分配空間 */
 .nav{
-  display: flex;
+  flex: 1;
+  justify-content: center;
   gap: 16px;
-  align-items: center;
-  flex: 1;                 /* 🔥 自動分配空間 */
-  justify-content: center; /* 置中 */
 }
 
-/* 導覽文字 */
+/* 導覽字縮一點 */
 .nav a{
   font-size: 13px;
-  font-weight: 700;
-  white-space: nowrap;
 }
 
-/* 右側按鈕 */
+/* 右邊不要被壓縮 */
 .nav-actions{
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-shrink: 0;  /* 不被壓縮 */
+  flex-shrink: 0;
 }
 
-/* 按鈕縮小（避免擠） */
+/* 按鈕縮一點（避免爆） */
 .nav-actions .btn{
   padding: 10px 14px;
   font-size: 13px;
 }
 
+/* header整體更穩 */
+.header-inner{
+  gap: 10px;
+}
+
 /* =========================
-🔥 平板（開始收斂）
+🔥 中尺寸（開始防爆）
 ========================= */
 @media (max-width: 1200px){
-
-  .nav{
-    gap: 12px;
-  }
 
   .nav a{
     font-size: 12px;
@@ -729,16 +693,16 @@ grid-template-columns:1fr !important;
 }
 
 /* =========================
-🔥 小筆電（開始隱藏部分）
+🔥 平板（關鍵修復）
 ========================= */
 @media (max-width: 1024px){
 
   .nav{
-    display: none !important; /* 🔥 直接隱藏避免爆 */
+    display: none !important;
   }
 
   .nav-actions .btn{
-    display: none !important; /* 只留漢堡 */
+    display: none !important;
   }
 
   .hamburger{
@@ -748,20 +712,12 @@ grid-template-columns:1fr !important;
 }
 
 /* =========================
-🔥 手機版最乾淨版
+🔥 手機版（完全穩定）
 ========================= */
 @media (max-width: 768px){
 
-  .topbar{
-    display:none !important;
-  }
-
-  .header{
-    padding:6px 0 !important;
-  }
-
   .brand{
-    max-width: 180px;
+    max-width: 170px;
   }
 
   .brand-logo{
@@ -774,16 +730,11 @@ grid-template-columns:1fr !important;
   }
 
   .brand-sub{
-    display:none !important;
+    display: none !important;
   }
 
-  .hamburger{
-    width: 38px;
-    height: 38px;
-    font-size: 20px;
-    border-radius: 10px;
-    background:#f3f4f6;
-    border:none;
+  .header{
+    padding: 6px 0 !important;
   }
 
 }
