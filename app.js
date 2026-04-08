@@ -19,12 +19,3 @@ if (hamburger && mobileMenu) {
     }
   });
 }
-
-<script>
-const btn = document.getElementById("hamburger");
-const menu = document.getElementById("mobileMenu");
-
-btn.addEventListener("click", () => {
-  menu.classList.toggle("active");
-});
-</script>
