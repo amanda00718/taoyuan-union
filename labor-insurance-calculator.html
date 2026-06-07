@@ -1089,34 +1089,7 @@
       const annualSelf = selfPay * 12;
       const annualGov = govPay * 12;
 
-      function updatePension() {
-
-  const years =
-    parseInt(document.getElementById('yearsSlider').value);
-
-  document.getElementById('yearsVal').textContent =
-    years + ' 年';
-
-  const monthly =
-    Math.round(45800 * years * 0.0155);
-
-  document.getElementById('pensionResult').innerHTML = `
-    <div class="pr-label">
-      預估老年年金月領金額
-    </div>
-
-    <div class="pr-value">
-      $${fmt(monthly)}
-      <span style="font-size:16px;font-weight:400">
-        元 / 月
-      </span>
-    </div>
-
-    <div class="pr-sub">
-      公式：45,800 × 年資 × 1.55%｜實際依勞保局計算為準
-    </div>
-  `;
-}
+      document.getElementById("resultGrid").innerHTML = `
         <div class="result-item highlight">
           <div class="r-label">每月自付總額</div>
           <div class="r-value">$${fmt(selfPay)}<span class="r-unit">元</span></div>
