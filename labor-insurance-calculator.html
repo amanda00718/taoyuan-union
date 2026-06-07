@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>勞保費用試算器｜桃園職業工會勞健保費用線上試算</title>
+  <meta name="description" content="桃園市生活助理從業人員職業工會提供免費勞保費用試算器，選擇投保薪資即可試算每月勞保費、健保費、政府補助與退休年金。" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href="https://tynunion.com/labor-insurance-calculator.html" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+
+  <meta property="og:title" content="勞保費用試算器｜桃園市生活助理從業人員職業工會" />
+  <meta property="og:description" content="免費試算勞保、健保、政府補助與退休年金，適合自由工作者、接案工作者、無一定雇主勞工。" />
+  <meta property="og:url" content="https://tynunion.com/labor-insurance-calculator.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="桃園市生活助理從業人員職業工會" />
+  <meta property="og:image" content="https://tynunion.com/favicon.png" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f7fbff;
+      --card: #ffffff;
+      --soft: #eef7fb;
+      --deep: #0f2f45;
+      --text: #123044;
+      --muted: #5f7483;
+      --dim: #8aa0ad;
+      --accent: #11b8a6;
+      --accent2: #2563eb;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --border: rgba(17, 184, 166, 0.22);
+      --shadow: 0 18px 45px rgba(15, 47, 69, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(17, 184, 166, 0.13), transparent 32%),
+        linear-gradient(180deg, #f7fbff 0%, #ffffff 55%, #f4fbff 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .topbar {
+      background: #0f2f45;
+      color: #d9f7f4;
+      font-size: 13px;
+      padding: 9px 0;
+    }
+
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(17, 184, 166, 0.18);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      padding: 4px 12px;
+      color: #75fff1;
+      font-weight: 700;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .top-actions a {
+      color: #d9f7f4;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(15, 47, 69, 0.08);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(15,47,69,0.12);
+    }
+
+    .brand-title {
+      display: block;
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--deep);
+      line-height: 1.25;
+    }
+
+    .brand-sub {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 20px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.18);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 30px rgba(37, 99, 235, 0.22);
+    }
+
+    .btn-outline {
+      color: var(--deep);
+      background: white;
+      border: 1px solid rgba(15,47,69,0.13);
+    }
+
+    .hero {
+      padding: 62px 20px 34px;
+      text-align: center;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(17,184,166,0.11);
+      color: #0f8f82;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      color: var(--deep);
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .trust-row {
+      margin: 24px auto 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      background: white;
+      border: 1px solid rgba(15,47,69,0.08);
+      border-radius: 999px;
+      padding: 7px 13px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(15,47,69,0.05);
+    }
+
+    .main-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 20px 70px;
+    }
+
+    .calc-card {
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(17,184,166,0.22);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .calc-head {
+      background: linear-gradient(135deg, #0f2f45, #124866);
+      color: white;
+      padding: 22px 28px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .calc-head h2 {
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .calc-head p {
+      color: #bdebe6;
+      font-size: 13px;
+    }
+
+    .calc-body {
+      padding: 30px;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #0f8f82;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      margin-bottom: 14px;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(17,184,166,0.13);
+    }
+
+    .salary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(122px, 1fr));
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .salary-btn {
+      background: #f7fbff;
+      border: 1px solid rgba(15,47,69,0.1);
+      border-radius: 16px;
+      padding: 14px 8px;
+      cursor: pointer;
+      transition: 0.18s ease;
+      font-family: inherit;
+      color: var(--muted);
+      min-height: 72px;
+    }
+
+    .salary-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      background: rgba(17,184,166,0.06);
+    }
+
+    .salary-btn.active {
+      background: linear-gradient(135deg, rgba(17,184,166,0.14), rgba(37,99,235,0.08));
+      border-color: var(--accent);
+      box-shadow: inset 0 0 0 1px rgba(17,184,166,0.18);
+    }
+
+    .salary-btn .amount {
+      display: block;
+      color: var(--deep);
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .salary-btn.active .amount {
+      color: #0f8f82;
+    }
+
+    .salary-btn .unit {
+      display: block;
+      font-size: 12px;
+      color: var(--dim);
+      margin-top: 2px;
+    }
+
+    .toggle-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .toggle-btn {
+      border: 2px solid rgba(15,47,69,0.1);
+      background: #f7fbff;
+      border-radius: 20px;
+      padding: 20px 14px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.2s ease;
+      text-align: center;
+    }
+
+    .toggle-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .toggle-btn.active-both {
+      border-color: var(--accent);
+      background: rgba(17,184,166,0.08);
+    }
+
+    .toggle-btn.active-labor {
+      border-color: var(--accent2);
+      background: rgba(37,99,235,0.08);
+    }
+
+    .t-icon {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .t-label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      color: var(--deep);
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .plus {
+      color: var(--accent);
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+    }
+
+    .t-badge {
+      display: inline-flex;
+      margin-top: 9px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      background: white;
+      color: var(--muted);
+      border: 1px solid rgba(15,47,69,0.08);
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(15,47,69,0.09);
+      margin: 24px 0;
+    }
+
+    .result-title {
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--deep);
+      margin-bottom: 15px;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .result-item {
+      border-radius: 22px;
+      padding: 23px 20px;
+      background: #f7fbff;
+      border: 1px solid rgba(15,47,69,0.08);
+    }
+
+    .result-item.highlight {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(17,184,166,0.12), rgba(255,255,255,0.9));
+    }
+
+    .result-item.gov {
+      border-color: rgba(22,163,74,0.35);
+      background: linear-gradient(135deg, rgba(22,163,74,0.1), rgba(255,255,255,0.9));
+    }
+
+    .r-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .r-value {
+      font-family: "Inter", sans-serif;
+      font-size: clamp(30px, 5vw, 42px);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--deep);
+    }
+
+    .highlight .r-value {
+      color: #0f8f82;
+    }
+
+    .gov .r-value {
+      color: var(--success);
+    }
+
+    .r-unit {
+      font-size: 15px;
+      margin-left: 3px;
+      font-weight: 700;
+    }
+
+    .r-sub {
+      margin-top: 8px;
+      color: var(--dim);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .bar-section {
+      background: #f7fbff;
+      border: 1px solid rgba(15,47,69,0.08);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 22px;
+    }
+
+    .bar-row + .bar-row {
+      margin-top: 16px;
+    }
+
+    .bar-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .b-value {
+      font-family: "Inter", sans-serif;
+      color: var(--deep);
+      font-weight: 900;
+    }
+
+    .bar-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(15,47,69,0.08);
+      overflow: hidden;
+    }
+
+    .bar-fill-self {
+      height: 100%;
+      width: 60%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .bar-fill-gov {
+      height: 100%;
+      width: 40%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--success), #22c55e);
+    }
+
+    .annual-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .annual-item {
+      text-align: center;
+      background: #f7fbff;
+      border: 1px solid rgba(15,47,69,0.08);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .a-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .a-value {
+      margin-top: 6px;
+      color: var(--deep);
+      font-family: "Inter", sans-serif;
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .a-sub {
+      margin-top: 3px;
+      color: var(--dim);
+      font-size: 12px;
+    }
+
+    .pension-box {
+      background: linear-gradient(135deg, rgba(37,99,235,0.09), rgba(17,184,166,0.08));
+      border: 1px solid rgba(37,99,235,0.18);
+      border-radius: 22px;
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+
+    .p-title {
+      color: var(--deep);
+      font-size: 16px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .pension-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .pension-slider-row label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      min-width: 92px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent2);
+    }
+
+    .val {
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      color: var(--deep);
+      min-width: 54px;
+      text-align: right;
+    }
+
+    .pension-result {
+      background: rgba(255,255,255,0.74);
+      border: 1px solid rgba(15,47,69,0.08);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .pr-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .pr-value {
+      margin-top: 4px;
+      color: var(--accent2);
+      font-family: "Inter", sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+    }
+
+    .pr-sub {
+      color: var(--dim);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .note-box {
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.25);
+      color: #8a5a00;
+      border-radius: 16px;
+      padding: 15px 17px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .cta-box {
+      margin-top: 24px;
+      text-align: center;
+      background: linear-gradient(135deg, #0f2f45, #145777);
+      color: white;
+      border-radius: 24px;
+      padding: 30px 22px;
+    }
+
+    .cta-box h3 {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .cta-box p {
+      color: #c8f4ef;
+      margin-bottom: 20px;
+    }
+
+    .cta-btns {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .info-section {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .info-card {
+      background: white;
+      border: 1px solid rgba(15,47,69,0.08);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(15,47,69,0.06);
+    }
+
+    .info-card h3 {
+      color: var(--deep);
+      font-size: 16px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .floating {
+      position: fixed;
+      right: 18px;
+      bottom: 22px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .float-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.22);
+      transition: 0.2s ease;
+    }
+
+    .float-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    .float-btn.line {
+      background: #06c755;
+    }
+
+    .float-btn.phone {
+      background: var(--accent2);
+    }
+
+    .site-footer {
+      background: #0f2f45;
+      color: #c8e6e2;
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 13px;
+    }
+
+    .footer-links {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #c8e6e2;
+      text-decoration: none;
+    }
+
+    .copyright {
+      margin-top: 14px;
+      color: rgba(200,230,226,0.6);
+      font-size: 12px;
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        display: none;
+      }
+
+      .header-inner {
+        min-height: 68px;
+      }
+
+      .brand-title {
+        font-size: 14px;
+      }
+
+      .brand-sub {
+        display: none;
+      }
+
+      .hero {
+        padding: 42px 18px 26px;
+      }
+
+      .calc-body {
+        padding: 22px 16px;
+      }
+
+      .calc-head {
+        padding: 20px 18px;
+      }
+
+      .salary-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .salary-btn {
+        min-height: 66px;
+        padding: 11px 5px;
+      }
+
+      .salary-btn .amount {
+        font-size: 14px;
+      }
+
+      .toggle-row,
+      .result-grid,
+      .annual-row,
+      .info-section {
+        grid-template-columns: 1fr;
+      }
+
+      .toggle-btn {
+        padding: 16px 12px;
+      }
+
+      .pension-slider-row {
+        display: block;
+      }
+
+      .pension-slider-row label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .val {
+        display: block;
+        text-align: left;
+        margin-top: 4px;
+      }
+
+      .floating {
+        right: 14px;
+        bottom: 16px;
+      }
+
+      .float-btn {
+        width: 52px;
+        height: 52px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div>
+        <span class="pill">政府補助 40% 保費</span>
+        <span> 自由工作者、接案者、無一定雇主可詢問</span>
+      </div>
+      <div class="top-actions">
+        <a href="tel:034941777">📞 03-494-1777</a>
+        <a href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">💬 LINE：@097srncp</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img src="favicon.png" class="brand-logo" alt="桃園市生活助理從業人員職業工會 Logo">
+        <span>
+          <span class="brand-title">桃園市生活助理從業人員職業工會</span>
+          <span class="brand-sub">Taoyuan Living Assistants Workers Union</span>
+        </span>
+      </a>
+
+      <nav class="nav">
+        <a href="/">首頁</a>
+        <a href="jobs.html">可加入職業</a>
+        <a href="join.html">加入方式</a>
+        <a href="faq.html">常見問題</a>
+      </nav>
+
+      <a class="btn btn-primary" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">LINE 詢問</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-kicker">免費線上工具</div>
+      <h1>勞保費用<span>試算器</span></h1>
+      <p>
+        選擇投保薪資與投保方式，立即試算每月自付金額、政府補助金額與退休年金參考值。
+      </p>
+
+      <div class="trust-row">
+        <div class="trust-item">專人協助說明</div>
+        <div class="trust-item">LINE 可詢問資格</div>
+        <div class="trust-item">適合無一定雇主勞工</div>
+      </div>
+    </section>
+
+    <section class="main-wrap">
+      <div class="calc-card">
+        <div class="calc-head">
+          <div>
+            <h2>勞健保每月費用試算</h2>
+            <p>金額為參考估算，實際仍以主管機關公告與工會現場說明為準。</p>
+          </div>
+          <a class="btn btn-primary" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">直接問專人</a>
+        </div>
+
+        <div class="calc-body">
+          <div class="section-label">Step 1 — 選擇投保薪資</div>
+          <div class="salary-grid" id="salaryGrid"></div>
+
+          <div class="section-label">Step 2 — 選擇投保方式</div>
+          <div class="toggle-row">
+            <button class="toggle-btn active-both" id="toggleBoth" type="button" onclick="setMode('both')">
+              <span class="t-icon">🛡️</span>
+              <span class="t-label">勞保 <span class="plus">+</span> 健保</span>
+              <span class="t-badge">多數人常用</span>
+            </button>
+
+            <button class="toggle-btn" id="toggleLabor" type="button" onclick="setMode('labor')">
+              <span class="t-icon">💼</span>
+              <span class="t-label">只保勞保</span>
+              <span class="t-badge">健保另行處理</span>
+            </button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="result-title">每月費用試算結果</div>
+          <div class="result-grid" id="resultGrid"></div>
+
+          <div class="bar-section" id="barSection"></div>
+
+          <div class="annual-row" id="annualRow"></div>
+
+          <div class="section-label">退休年金參考估算</div>
+          <div class="pension-box">
+            <div class="p-title">🎯 預估老年年金月領金額</div>
+
+            <div class="pension-slider-row">
+              <label for="yearsSlider">投保年資</label>
+              <input type="range" id="yearsSlider" min="15" max="50" value="20" oninput="updatePension()">
+              <span class="val" id="yearsVal">20 年</span>
+            </div>
+
+            <div class="pension-result" id="pensionResult"></div>
+          </div>
+
+          <div class="note-box">
+            ⚠️ 此頁為快速估算工具，實際保費、補助、級距與年金金額，仍需依勞保局、健保署最新公告與實際申辦條件為準。若不確定自己適不適合加入，可直接用 LINE 詢問。
+          </div>
+
+          <div class="cta-box">
+            <h3>試算完想直接加入？</h3>
+            <p>直接 LINE 我們，專人協助確認資格、準備資料與加入流程。</p>
+            <div class="cta-btns">
+              <a class="btn btn-primary" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">💬 LINE 免費諮詢</a>
+              <a class="btn btn-outline" href="join.html">查看加入方式</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <div class="info-card">
+          <h3>誰適合試算？</h3>
+          <p>自由工作者、接案者、自營工作者、沒有固定公司投保的人，都可以先用本頁了解大約費用。</p>
+        </div>
+
+        <div class="info-card">
+          <h3>政府補助多少？</h3>
+          <p>職業工會投保通常由政府補助部分保費，本頁以常見補助比例做快速估算。</p>
+        </div>
+
+        <div class="info-card">
+          <h3>不確定能不能加？</h3>
+          <p>職業類別很多，若你的工作型態比較新，例如 AI、接案、陪診、網拍，可直接 LINE 詢問。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="floating" aria-label="快速聯絡">
+    <a class="float-btn line" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener" aria-label="LINE 聯絡">LINE</a>
+    <a class="float-btn phone" href="tel:034941777" aria-label="電話聯絡">電話</a>
+  </div>
+
+  <footer class="site-footer">
+    <div>桃園市生活助理從業人員職業工會｜桃園市中壢區民權路132號3樓｜03-494-1777</div>
+
+    <div class="footer-links">
+      <a href="/">首頁</a>
+      <a href="jobs.html">可加入職業</a>
+      <a href="join.html">加入方式</a>
+      <a href="faq.html">常見問題</a>
+      <a href="labor-insurance-calculator.html">勞保費用試算器</a>
+    </div>
+
+    <div class="copyright">© 2026 桃園市生活助理從業人員職業工會. All rights reserved.</div>
+  </footer>
+
+  <script>
+    const data = [
+      { salary: 29500, both: 3135, labor: 2220 },
+      { salary: 30300, both: 3216, labor: 2276 },
+      { salary: 31800, both: 3366, labor: 2380 },
+      { salary: 33300, both: 3519, labor: 2486 },
+      { salary: 34800, both: 3670, labor: 2591 },
+      { salary: 36300, both: 3822, labor: 2796 },
+      { salary: 38200, both: 4015, labor: 2830 },
+      { salary: 40100, both: 4207, labor: 2963 },
+      { salary: 42000, both: 4399, labor: 3096 },
+      { salary: 43900, both: 4591, labor: 3229 },
+      { salary: 45800, both: 4783, labor: 3362 }
+    ];
+
+    let selectedSalary = 29500;
+    let mode = "both";
+
+    function fmt(n) {
+      return Number(n).toLocaleString("zh-TW");
+    }
+
+    function getCurrentRow() {
+      return data.find(item => item.salary === selectedSalary) || data[0];
+    }
+
+    function setMode(newMode) {
+      mode = newMode;
+
+      const bothBtn = document.getElementById("toggleBoth");
+      const laborBtn = document.getElementById("toggleLabor");
+
+      bothBtn.className = "toggle-btn" + (mode === "both" ? " active-both" : "");
+      laborBtn.className = "toggle-btn" + (mode === "labor" ? " active-labor" : "");
+
+      calculate();
+    }
+
+    function selectSalary(value) {
+      selectedSalary = Number(value);
+
+      document.querySelectorAll(".salary-btn").forEach(btn => {
+        btn.classList.toggle("active", Number(btn.dataset.value) === selectedSalary);
+      });
+
+      calculate();
+    }
+
+    function calculate() {
+      const row = getCurrentRow();
+      const selfPay = mode === "both" ? row.both : row.labor;
+      const modeLabel = mode === "both" ? "勞保 + 健保參考費用" : "只保勞保參考費用";
+
+      const estimatedInsuranceBase = Math.max(selfPay - 150, 0);
+      const govPay = Math.round((estimatedInsuranceBase / 0.6) * 0.4);
+      const totalInsurance = selfPay + govPay;
+
+      const annualSelf = selfPay * 12;
+      const annualGov = govPay * 12;
+
+      document.getElementById("resultGrid").innerHTML = `
+        <div class="result-item highlight">
+          <div class="r-label">每月自付總額</div>
+          <div class="r-value">$${fmt(selfPay)}<span class="r-unit">元</span></div>
+          <div class="r-sub">${modeLabel}</div>
+        </div>
+
+        <div class="result-item gov">
+          <div class="r-label">政府每月補助估算</div>
+          <div class="r-value">$${fmt(govPay)}<span class="r-unit">元</span></div>
+          <div class="r-sub">依常見補助比例快速估算</div>
+        </div>
+      `;
+
+      document.getElementById("barSection").innerHTML = `
+        <div class="bar-row">
+          <div class="bar-meta">
+            <span>您每月自付參考</span>
+            <span class="b-value">$${fmt(selfPay)} 元</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill-self"></div>
+          </div>
+        </div>
+
+        <div class="bar-row">
+          <div class="bar-meta">
+            <span>政府每月補助參考</span>
+            <span class="b-value">$${fmt(govPay)} 元</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill-gov"></div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("annualRow").innerHTML = `
+        <div class="annual-item">
+          <div class="a-label">一年自付參考</div>
+          <div class="a-value">$${fmt(annualSelf)}</div>
+          <div class="a-sub">以目前選擇金額 × 12 個月</div>
+        </div>
+
+        <div class="annual-item">
+          <div class="a-label">一年政府補助參考</div>
+          <div class="a-value">$${fmt(annualGov)}</div>
+          <div class="a-sub">實際依主管機關公告為準</div>
+        </div>
+      `;
+
+      updatePension();
+    }
+
+    function updatePension() {
+      const years = Number(document.getElementById("yearsSlider").value);
+      const row = getCurrentRow();
+      const salary = row.salary;
+
+      document.getElementById("yearsVal").textContent = years + " 年";
+
+      const optionA = Math.round(salary * years * 0.00775 + 3000);
+      const optionB = Math.round(salary * years * 0.0155);
+      const better = Math.max(optionA, optionB);
+      const betterLabel = optionB >= optionA ? "第二式較高" : "第一式較高";
+
+      document.getElementById("pensionResult").innerHTML = `
+        <div class="pr-label">以投保薪資 $${fmt(salary)}、年資 ${years} 年估算</div>
+        <div class="pr-value">$${fmt(better)}<span style="font-size:16px;font-weight:700"> 元 / 月</span></div>
+        <div class="pr-sub">
+          第一式：約 $${fmt(optionA)}／第二式：約 $${fmt(optionB)}｜${betterLabel}
+        </div>
+      `;
+    }
+
+    function initGrid() {
+      const grid = document.getElementById("salaryGrid");
+      grid.innerHTML = "";
+
+      data.forEach(item => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "salary-btn" + (item.salary === selectedSalary ? " active" : "");
+        btn.dataset.value = item.salary;
+        btn.setAttribute("aria-label", "選擇投保薪資 " + fmt(item.salary) + " 元");
+        btn.innerHTML = `
+          <span class="amount">$${fmt(item.salary)}</span>
+          <span class="unit">投保薪資</span>
+        `;
+        btn.addEventListener("click", () => selectSalary(item.salary));
+        grid.appendChild(btn);
+      });
+    }
+
+    initGrid();
+    calculate();
+  </script>
+
+</body>
+</html>
