@@ -1084,7 +1084,7 @@
     function calculate() {
       const row = getCurrentRow();
       const selfPay = mode === "both" ? row.both : row.labor;
-      const modeLabel = mode === "both" ? "勞保 + 健保參考費用" : "只保勞保參考費用";
+      const modeLabel = mode === "both" ? "勞保 + 健保 + 會費參考費用" : "只保勞保 + 會費參考費用";
 
       const estimatedInsuranceBase = Math.max(selfPay - 150, 0);
       const govPay = Math.round((estimatedInsuranceBase / 0.6) * 0.4);
