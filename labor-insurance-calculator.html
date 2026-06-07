@@ -1143,25 +1143,29 @@
     }
 
     function updatePension() {
-      const years = Number(document.getElementById("yearsSlider").value);
-      const row = getCurrentRow();
-      const salary = row.salary;
+  const years = Number(document.getElementById("yearsSlider").value);
 
-      document.getElementById("yearsVal").textContent = years + " 年";
+  document.getElementById("yearsVal").textContent = years + " 年";
 
-      const optionA = Math.round(salary * years * 0.00775 + 3000);
-      const optionB = Math.round(salary * years * 0.0155);
-      const better = Math.max(optionA, optionB);
-      const betterLabel = optionB >= optionA ? "第二式較高" : "第一式較高";
+  const monthly = Math.round(45800 * years * 0.0155);
 
-      document.getElementById("pensionResult").innerHTML = `
-        <div class="pr-label">以投保薪資 $${fmt(salary)}、年資 ${years} 年估算</div>
-        <div class="pr-value">$${fmt(better)}<span style="font-size:16px;font-weight:700"> 元 / 月</span></div>
-        <div class="pr-sub">
-          第一式：約 $${fmt(optionA)}／第二式：約 $${fmt(optionB)}｜${betterLabel}
-        </div>
-      `;
-    }
+  document.getElementById("pensionResult").innerHTML = `
+    <div class="pr-label">
+      預估老年年金月領金額
+    </div>
+
+    <div class="pr-value">
+      $${fmt(monthly)}
+      <span style="font-size:16px;font-weight:700">
+        元 / 月
+      </span>
+    </div>
+
+    <div class="pr-sub">
+      公式：45,800 × 年資 × 1.55%｜實際依勞保局計算為準
+    </div>
+  `;
+}
 
     function initGrid() {
       const grid = document.getElementById("salaryGrid");
