@@ -45,8 +45,10 @@
   background:
     linear-gradient(115deg, rgba(255,255,255,0.7) 0%, rgba(236,246,255,0.58) 46%, rgba(232,250,246,0.62) 100%);
   border-bottom:1px solid rgba(120,150,200,0.14);
+  overflow:hidden;
 }
-.seniority-hero-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(390px,1.1fr);gap:34px;align-items:center;}
+.seniority-hero .container{width:min(1180px, calc(100vw - 48px));}
+.seniority-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:34px;align-items:center;}
 .seniority-hero h1{max-width:12em;margin:14px 0 12px;font-size:clamp(30px,3.2vw,42px);line-height:1.16;letter-spacing:0;color:#17233f;}
 .seniority-hero .lead{max-width:34em;font-size:16px;color:#4b5c7d;}
 .seniority-hero .kicker{
@@ -55,7 +57,7 @@
 }
 .search-chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 20px;}
 .search-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(91,141,239,0.18);background:rgba(255,255,255,0.78);color:#405274;font-size:13px;font-weight:800;}
-.quick-panel{border:1px solid rgba(91,141,239,0.16);border-radius:18px;background:rgba(255,255,255,0.92);box-shadow:0 20px 48px rgba(43,75,120,0.14);padding:24px;}
+.quick-panel{width:100%;max-width:520px;justify-self:end;border:1px solid rgba(91,141,239,0.16);border-radius:18px;background:rgba(255,255,255,0.92);box-shadow:0 20px 48px rgba(43,75,120,0.14);padding:24px;overflow:hidden;}
 .quick-panel h2{margin:0 0 6px;font-size:24px;letter-spacing:0;color:#17233f;}
 .wizard-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px;}
 .wizard-step{display:inline-flex;align-items:center;justify-content:center;min-width:70px;padding:6px 10px;border-radius:999px;background:linear-gradient(135deg, rgba(91,141,239,0.14), rgba(126,214,195,0.18));color:#4f7fe5;font-weight:900;font-size:13px;}
@@ -75,6 +77,20 @@
 .text-button{border:0;background:transparent;color:#5b6d8f;font:inherit;font-weight:900;cursor:pointer;padding:10px 0;}
 .result-card{border-radius:16px;border:1px solid rgba(91,141,239,0.16);background:linear-gradient(135deg, rgba(91,141,239,0.08), rgba(126,214,195,0.10));padding:16px;margin-top:18px;}
 .result-card h3{margin:0 0 8px;color:#17233f;}
+.quick-panel.is-complete .wizard-head,
+.quick-panel.is-complete .progress-track,
+.quick-panel.is-complete .question-block,
+.quick-panel.is-complete .wizard-actions{display:none;}
+.diagnosis-result-card{border:1px solid rgba(91,141,239,0.18);border-radius:18px;background:linear-gradient(135deg, rgba(91,141,239,0.12), rgba(126,214,195,0.14));padding:22px;}
+.result-badge{display:inline-flex;padding:7px 11px;border-radius:999px;background:#fff;color:#4f7fe5;font-size:13px;font-weight:900;margin-bottom:12px;}
+.diagnosis-result-card h2{margin:0 0 10px;font-size:26px;color:#17233f;}
+.result-summary{margin:0 0 16px;color:#405274;font-weight:800;}
+.next-list{display:grid;gap:10px;margin:16px 0;}
+.next-item{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:start;border:1px solid rgba(255,255,255,0.76);border-radius:14px;background:rgba(255,255,255,0.72);padding:12px;}
+.next-number{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#5b8def,#7ed6c3);color:white;font-weight:900;}
+.next-item strong{display:block;color:#17233f;}
+.next-item span{display:block;color:#5b6d8f;font-size:14px;font-weight:700;margin-top:2px;}
+.result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
 .interactive-tool{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:18px;align-items:start;}
 .tool-fields{display:grid;gap:12px;}
 .field-card{display:grid;gap:6px;}
@@ -84,7 +100,7 @@
 .route-card{display:block;text-decoration:none;border:1px solid rgba(120,150,200,0.14);border-radius:16px;padding:16px;background:rgba(255,255,255,0.8);box-shadow:var(--shadow);}
 .route-card strong{display:block;margin-bottom:4px;}
 .route-card span{color:var(--muted);font-size:14px;}
-@media (max-width:980px){.seniority-hero-grid,.interactive-tool{grid-template-columns:1fr;}.route-grid{grid-template-columns:1fr 1fr;}.seniority-hero h1{max-width:100%;}}
+@media (max-width:980px){.seniority-hero-grid,.interactive-tool{grid-template-columns:1fr;}.quick-panel{justify-self:stretch;max-width:none}.route-grid{grid-template-columns:1fr 1fr;}.seniority-hero h1{max-width:100%;}}
 @media (max-width:640px){.quick-panel{padding:18px}.option-grid,.option-grid.three,.route-grid{grid-template-columns:1fr;}.question-title{font-size:21px}.choice-card{min-height:auto}.wizard-actions{align-items:flex-start;flex-direction:column-reverse;}}
 </style>
 </head>
@@ -666,6 +682,7 @@ function diagnoseLabor() {
   const insurance = document.getElementById("insurance").value;
   const quit = document.getElementById("quit").value;
   const result = document.getElementById("diagnosisResult");
+  const panel = document.getElementById("diagnosis");
 
   if (!employer || !jobtype || !insurance || !quit) {
     result.innerHTML = `
@@ -679,31 +696,78 @@ function diagnoseLabor() {
 
   let level = "";
   let advice = "";
+  let badge = "";
+  let nextSteps = [];
 
   if (employer === "no" && insurance === "no") {
+    badge = "優先處理";
     level = "勞保中斷風險較高";
     advice = "你目前沒有固定雇主，且沒有勞保。建議盡快確認適合自己的投保方式，避免勞保年資長期中斷。";
+    nextSteps = [
+      ["先查投保紀錄", "確認目前是否真的沒有投保，以及最後一次退保日期。"],
+      ["評估銜接方式", "沒有固定雇主時，可了解是否符合職業工會投保方向。"],
+      ["保留目前工作證明", "接案、自營或自由工作資料，後續諮詢時會更好判斷。"]
+    ];
   } else if (employer === "no" && insurance === "unknown") {
+    badge = "先確認資料";
     level = "建議立即確認勞保狀況";
     advice = "你目前不確定自己是否有勞保。建議先查詢投保紀錄，確認目前保障狀況。";
+    nextSteps = [
+      ["用手機查投保紀錄", "先確認目前是否在保，以及投保單位是不是你認得的單位。"],
+      ["查看是否有退保日", "如果有退保日期，要再看後面是否有新的加保紀錄。"],
+      ["看不懂就截圖詢問", "把查到的投保資料截圖，方便工會協助判斷。"]
+    ];
   } else if (jobtype === "freelancer" || jobtype === "creator" || jobtype === "self") {
+    badge = "自由工作提醒";
     level = "自由工作型態需定期確認";
     advice = "自由工作者、創作者與自營工作者，建議定期確認勞保是否持續累積，尤其要留意離職後的空窗期。";
+    nextSteps = [
+      ["確認目前是否在保", "自由工作後最容易忘記勞保已經從公司退掉。"],
+      ["檢查年資是否銜接", "看離職後到現在，中間是否有沒有投保的空窗。"],
+      ["詢問適合的加保方式", "若沒有固定雇主，可先了解職業工會相關方向。"]
+    ];
   } else if (quit === "yes") {
+    badge = "轉職檢查";
     level = "建議確認退保與加保日期";
     advice = "最近一年曾離職或轉職，建議確認原單位退保日期與新單位加保日期是否銜接。";
+    nextSteps = [
+      ["確認原公司退保日", "先看上一份工作的退保日期。"],
+      ["確認新單位加保日", "比對兩個日期中間有沒有空窗。"],
+      ["保存查詢畫面", "若日期不合理，先截圖再詢問原單位或相關單位。"]
+    ];
   } else {
+    badge = "資料檢查";
     level = "目前狀況先確認資料是否正確";
     advice = "你可以先查詢投保紀錄，確認目前投保單位、投保薪資與累積年資是否正確。";
+    nextSteps = [
+      ["查看目前投保單位", "確認是不是現在的工作單位。"],
+      ["檢查投保薪資", "看投保薪資是否和實際情況有明顯落差。"],
+      ["輸入年資試算提醒", "往下使用年資檢查工具，看目前累積狀況。"]
+    ];
   }
 
+  const nextStepHtml = nextSteps.map((item, index) => `
+    <div class="next-item">
+      <div class="next-number">${index + 1}</div>
+      <div>
+        <strong>${item[0]}</strong>
+        <span>${item[1]}</span>
+      </div>
+    </div>
+  `).join("");
+
+  panel.classList.add("is-complete");
+
   result.innerHTML = `
-    <div class="result-card">
-      <h3>${level}</h3>
-      <p>${advice}</p>
-      <div style="margin-top:18px;">
+    <div class="diagnosis-result-card">
+      <div class="result-badge">${badge}</div>
+      <h2>${level}</h2>
+      <p class="result-summary">${advice}</p>
+      <div class="next-list">${nextStepHtml}</div>
+      <div class="result-actions">
         <a class="btn btn-primary" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">LINE 免費諮詢</a>
         <a class="btn btn-ghost" href="#query-methods">看查詢方式</a>
+        <button class="text-button" type="button" onclick="resetDiagnosis()">重新測一次</button>
       </div>
     </div>
   `;
@@ -713,6 +777,7 @@ let currentDiagnosisStep = 0;
 const diagnosisIds = ["employer", "jobtype", "insurance", "quit"];
 
 function showDiagnosisStep(step) {
+  document.getElementById("diagnosis").classList.remove("is-complete");
   currentDiagnosisStep = Math.max(0, Math.min(step, diagnosisIds.length - 1));
 
   document.querySelectorAll(".question-block").forEach((block) => {
@@ -774,7 +839,7 @@ document.getElementById("wizardBack").addEventListener("click", () => {
   showDiagnosisStep(currentDiagnosisStep - 1);
 });
 
-document.getElementById("wizardReset").addEventListener("click", () => {
+function resetDiagnosis() {
   diagnosisIds.forEach((id) => {
     document.getElementById(id).value = "";
   });
@@ -784,8 +849,11 @@ document.getElementById("wizardReset").addEventListener("click", () => {
   });
 
   document.getElementById("diagnosisResult").innerHTML = "";
+  document.getElementById("diagnosis").classList.remove("is-complete");
   showDiagnosisStep(0);
-});
+}
+
+document.getElementById("wizardReset").addEventListener("click", resetDiagnosis);
 
 showDiagnosisStep(0);
 </script>
