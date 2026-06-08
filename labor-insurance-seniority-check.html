@@ -7,12 +7,12 @@
 <link rel="canonical" href="https://tynunion.com/labor-insurance-seniority-check.html">
 <meta name="robots" content="index,follow,max-image-preview:large">
 
-<title>勞保年資查詢教學｜手機與電腦查詢投保紀錄完整指南</title>
+<title>勞保年資查詢｜手機查投保紀錄、勞保中斷與年資檢查</title>
 
-<meta name="description" content="勞保年資怎麼查？整理勞保局 e 化服務系統、手機驗證、ATM 與書面申請等查詢方式，教你確認投保紀錄、勞保年資是否中斷，並提供簡易年資檢查工具。">
+<meta name="description" content="想查勞保年資、投保紀錄或確認勞保有沒有中斷？本頁提供手機查詢教學、電腦查詢方式、查詢後檢查清單與互動式勞保狀況診斷。">
 
-<meta property="og:title" content="勞保年資查詢教學｜手機與電腦查詢投保紀錄完整指南">
-<meta property="og:description" content="教你查詢勞保年資、投保紀錄與勞保中斷狀況，並提供簡易年資檢查工具，協助自由工作者與沒有固定雇主者初步判斷保障狀況。">
+<meta property="og:title" content="勞保年資查詢｜手機查投保紀錄、勞保中斷與年資檢查">
+<meta property="og:description" content="用互動診斷快速判斷你的勞保狀況，再看手機、電腦與其他查詢方式，確認年資、投保單位與是否中斷。">
 <meta property="og:url" content="https://tynunion.com/labor-insurance-seniority-check.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="桃園市生活助理從業人員職業工會">
@@ -23,6 +23,39 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
 <link rel="stylesheet" href="style.css">
+<style>
+.seniority-hero{padding:42px 0 34px;}
+.seniority-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,460px);gap:22px;align-items:stretch;}
+.seniority-hero h1{margin:12px 0;font-size:clamp(30px,4vw,48px);line-height:1.14;}
+.search-chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0;}
+.search-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(91,141,239,0.16);background:rgba(255,255,255,0.72);color:#405274;font-size:13px;font-weight:800;}
+.quick-panel{border:1px solid rgba(120,150,200,0.16);border-radius:20px;background:rgba(255,255,255,0.9);box-shadow:0 18px 46px rgba(80,120,180,0.14);padding:20px;}
+.quick-panel h2{margin:0 0 6px;font-size:22px;}
+.question-block{margin-top:16px;}
+.question-title{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px;font-weight:900;color:#243454;}
+.question-count{color:var(--brand);font-size:13px;white-space:nowrap;}
+.option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+.option-grid.three{grid-template-columns:repeat(3,minmax(0,1fr));}
+.choice-card{width:100%;min-height:58px;border:1px solid rgba(120,150,200,0.18);border-radius:14px;background:rgba(248,251,255,0.9);color:#263856;cursor:pointer;padding:10px 12px;text-align:left;font:inherit;font-weight:900;transition:transform .15s ease,border-color .15s ease,background .15s ease,box-shadow .15s ease;}
+.choice-card span{display:block;margin-top:2px;color:#6b7a99;font-size:12px;font-weight:700;line-height:1.35;}
+.choice-card:hover,.choice-card.is-selected{transform:translateY(-1px);border-color:rgba(91,141,239,0.45);background:linear-gradient(135deg,rgba(91,141,239,0.12),rgba(126,214,195,0.16));box-shadow:0 12px 26px rgba(80,120,180,0.12);}
+.choice-card.is-selected::before{content:"✓ ";color:var(--brand);}
+.progress-track{height:8px;border-radius:999px;background:rgba(91,141,239,0.12);overflow:hidden;margin:14px 0 2px;}
+.progress-fill{width:0%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .2s ease;}
+.result-card{border-radius:16px;border:1px solid rgba(91,141,239,0.16);background:rgba(255,255,255,0.86);padding:16px;margin-top:16px;}
+.result-card h3{margin:0 0 8px;}
+.interactive-tool{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:18px;align-items:start;}
+.tool-fields{display:grid;gap:12px;}
+.field-card{display:grid;gap:6px;}
+.field-card label{font-weight:900;}
+.field-card input{width:100%;border:1px solid rgba(120,150,200,0.2);border-radius:14px;padding:13px 14px;font:inherit;background:rgba(255,255,255,0.9);}
+.route-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.route-card{display:block;text-decoration:none;border:1px solid rgba(120,150,200,0.14);border-radius:16px;padding:16px;background:rgba(255,255,255,0.8);box-shadow:var(--shadow);}
+.route-card strong{display:block;margin-bottom:4px;}
+.route-card span{color:var(--muted);font-size:14px;}
+@media (max-width:980px){.seniority-hero-grid,.interactive-tool{grid-template-columns:1fr;}.route-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:640px){.option-grid,.option-grid.three,.route-grid{grid-template-columns:1fr;}}
+</style>
 </head>
 
 <body>
@@ -85,26 +118,84 @@
 
 <main>
 
-<section class="section">
+<section class="seniority-hero">
   <div class="container">
 
-    <div class="section-head">
-      <h1>勞保年資查詢教學</h1>
-      <p class="muted">
-        想知道自己目前累積多少勞保年資、是否有中斷、投保單位是否正確？
-        本頁整理官方查詢方式與查詢後的檢查重點，特別適合剛離職、轉職、接案、自營作業或沒有固定雇主的人先確認保障狀況。
-      </p>
-    </div>
+    <div class="seniority-hero-grid">
+      <div>
+        <span class="kicker">勞保年資查詢｜投保紀錄｜勞保中斷</span>
+        <h1>先判斷你的勞保狀況，再查年資與投保紀錄</h1>
+        <p class="lead">
+          不知道自己有沒有勞保、離職後年資會不會中斷、手機要去哪裡查？
+          先用右側互動診斷抓出重點，再依照頁面步驟查詢官方紀錄。
+        </p>
 
-    <div class="panel">
-      <p>
-        勞保年資會影響未來老年給付規劃，也會幫助你確認過去是否有投保空窗。
-        如果你曾經離職、轉職、短期工作、接案或暫時沒有公司幫你投保，建議定期查詢自己的投保紀錄。
-      </p>
+        <div class="search-chips" aria-label="常見搜尋需求">
+          <span class="search-chip">勞保年資怎麼查</span>
+          <span class="search-chip">手機查勞保投保紀錄</span>
+          <span class="search-chip">離職後勞保中斷</span>
+          <span class="search-chip">沒有公司怎麼保勞保</span>
+        </div>
 
-      <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-        <a class="btn btn-primary" href="#tool">使用簡易年資檢查工具</a>
-        <a class="btn btn-ghost" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">LINE 詢問勞保問題</a>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#diagnosis">立即做勞保診斷</a>
+          <a class="btn btn-ghost" href="#query-methods">看查詢方式</a>
+        </div>
+      </div>
+
+      <div class="quick-panel" id="diagnosis">
+        <h2>互動式勞保狀況診斷</h2>
+        <p class="muted">點選符合你的狀況，系統會給你下一步建議。</p>
+
+        <input type="hidden" id="employer">
+        <input type="hidden" id="jobtype">
+        <input type="hidden" id="insurance">
+        <input type="hidden" id="quit">
+
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="diagnosisProgress"></div>
+        </div>
+
+        <div class="question-block">
+          <div class="question-title">目前有固定雇主嗎？ <span class="question-count">1 / 4</span></div>
+          <div class="option-grid">
+            <button class="choice-card" type="button" data-target="employer" data-value="yes">有固定雇主<span>公司或雇主有協助加保</span></button>
+            <button class="choice-card" type="button" data-target="employer" data-value="no">沒有固定雇主<span>接案、自營或暫時沒有公司</span></button>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <div class="question-title">目前工作型態？ <span class="question-count">2 / 4</span></div>
+          <div class="option-grid three">
+            <button class="choice-card" type="button" data-target="jobtype" data-value="employee">上班族<span>受僱工作</span></button>
+            <button class="choice-card" type="button" data-target="jobtype" data-value="freelancer">自由工作<span>接案或斜槓</span></button>
+            <button class="choice-card" type="button" data-target="jobtype" data-value="self">自營作業<span>自己經營工作</span></button>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <div class="question-title">目前有勞保嗎？ <span class="question-count">3 / 4</span></div>
+          <div class="option-grid three">
+            <button class="choice-card" type="button" data-target="insurance" data-value="yes">有<span>確定目前有投保</span></button>
+            <button class="choice-card" type="button" data-target="insurance" data-value="no">沒有<span>目前沒有加保</span></button>
+            <button class="choice-card" type="button" data-target="insurance" data-value="unknown">不知道<span>需要先查紀錄</span></button>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <div class="question-title">最近一年是否離職過？ <span class="question-count">4 / 4</span></div>
+          <div class="option-grid">
+            <button class="choice-card" type="button" data-target="quit" data-value="yes">有離職或轉職<span>建議確認退保與加保日期</span></button>
+            <button class="choice-card" type="button" data-target="quit" data-value="no">沒有<span>可先檢查投保資料是否正確</span></button>
+          </div>
+        </div>
+
+        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-primary" type="button" onclick="diagnoseLabor()">看我的建議</button>
+          <a class="btn btn-ghost" href="#tool">檢查年資</a>
+        </div>
+
+        <div id="diagnosisResult"></div>
       </div>
     </div>
 
@@ -115,27 +206,28 @@
   <div class="container">
 
     <div class="section-head">
-      <h2>勞保年資是什麼？為什麼要查？</h2>
+      <h2>你可能正在找的答案</h2>
+      <p class="muted">搜尋勞保年資的人，通常真正想確認的是下面這幾件事。</p>
     </div>
 
     <div class="grid-3">
 
       <article class="card">
-        <div class="card-tag">重點一</div>
-        <h3>確認投保紀錄</h3>
-        <p>查看過去投保期間、投保單位與異動資料，避免離職或轉職後才發現資料有落差。</p>
+        <div class="card-tag">問題一</div>
+        <h3>我現在到底有沒有勞保？</h3>
+        <p>先查目前是否仍在投保中，再確認投保單位是不是正確。</p>
       </article>
 
       <article class="card">
-        <div class="card-tag">重點二</div>
-        <h3>掌握累積年資</h3>
-        <p>年資不是只看工作多久，而是看實際投保期間。定期查詢能幫助你掌握目前累積狀況。</p>
+        <div class="card-tag">問題二</div>
+        <h3>離職後年資有沒有中斷？</h3>
+        <p>看原單位退保日期與下一個加保日期，中間沒有投保的時間就不會累積年資。</p>
       </article>
 
       <article class="card">
-        <div class="card-tag">重點三</div>
-        <h3>發現保障空窗</h3>
-        <p>離職、接案或自營作業後，最容易出現勞保中斷。越早確認，越能及早處理。</p>
+        <div class="card-tag">問題三</div>
+        <h3>沒有公司還能怎麼銜接？</h3>
+        <p>自由工作、接案、自營作業者，可以先了解是否符合透過職業工會投保的方向。</p>
       </article>
 
     </div>
@@ -143,7 +235,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="query-methods">
   <div class="container">
 
     <div class="section-head">
@@ -241,87 +333,37 @@
   <div class="container">
 
     <div class="section-head">
-      <h2>簡易年資檢查工具</h2>
+      <h2>輸入年齡與年資，快速看下一步</h2>
       <p class="muted">
-        這不是官方給付試算，只是協助你初步看懂目前年資狀況。實際年資、給付金額與請領資格仍以勞保局資料為準。
+        這不是官方給付試算，而是幫你把「查到的年資」轉成比較好理解的提醒。實際年資、給付金額與請領資格仍以勞保局資料為準。
       </p>
     </div>
 
-    <div class="panel">
-      <label for="age">目前年齡</label>
-      <input id="age" type="number" min="1" max="100" inputmode="numeric" placeholder="例如：42">
+    <div class="panel interactive-tool">
+      <div class="tool-fields">
+        <div class="field-card">
+          <label for="age">目前年齡</label>
+          <input id="age" type="number" min="1" max="100" inputmode="numeric" placeholder="例如：42">
+        </div>
 
-      <br><br>
+        <div class="field-card">
+          <label for="years">目前查到的勞保年資（年）</label>
+          <input id="years" type="number" min="0" max="60" step="0.1" inputmode="decimal" placeholder="例如：12.5">
+        </div>
 
-      <label for="years">目前查到的勞保年資（年）</label>
-      <input id="years" type="number" min="0" max="60" step="0.1" inputmode="decimal" placeholder="例如：12.5">
+        <button class="btn btn-primary" type="button" onclick="checkYears()">查看初步建議</button>
+      </div>
 
-      <br><br>
-
-      <button class="btn btn-primary" type="button" onclick="checkYears()">查看初步建議</button>
-
-      <div id="result" style="margin-top:25px;"></div>
-    </div>
-
-  </div>
-</section>
-
-<section class="section section-alt" id="diagnosis">
-  <div class="container">
-
-    <div class="section-head">
-      <h2>3 分鐘勞保狀況診斷</h2>
-      <p class="muted">
-        回答幾個問題，快速了解目前是否需要優先確認投保狀況。
-      </p>
-    </div>
-
-    <div class="panel">
-
-      <label for="employer">目前有固定雇主嗎？</label>
-      <select id="employer">
-        <option value="">請選擇</option>
-        <option value="yes">有固定雇主</option>
-        <option value="no">沒有固定雇主</option>
-      </select>
-
-      <br><br>
-
-      <label for="jobtype">目前工作型態？</label>
-      <select id="jobtype">
-        <option value="">請選擇</option>
-        <option value="employee">上班族</option>
-        <option value="freelancer">自由工作者</option>
-        <option value="self">自營作業者</option>
-        <option value="creator">創作者／自媒體</option>
-        <option value="business">創業者</option>
-      </select>
-
-      <br><br>
-
-      <label for="insurance">目前有勞保嗎？</label>
-      <select id="insurance">
-        <option value="">請選擇</option>
-        <option value="yes">有</option>
-        <option value="no">沒有</option>
-        <option value="unknown">不知道</option>
-      </select>
-
-      <br><br>
-
-      <label for="quit">最近一年是否離職過？</label>
-      <select id="quit">
-        <option value="">請選擇</option>
-        <option value="yes">是</option>
-        <option value="no">否</option>
-      </select>
-
-      <br><br>
-
-      <button class="btn btn-primary" type="button" onclick="diagnoseLabor()">立即診斷</button>
-
-      <div id="diagnosisResult" style="margin-top:25px;"></div>
-
+      <div>
+        <h3>查完後先看這 4 件事</h3>
+        <ul class="checklist">
+          <li>投保期間是否和實際工作時間相符。</li>
+          <li>是否有不明原因的退保或中斷期間。</li>
+          <li>目前是否仍在投保中。</li>
+          <li>投保單位與投保薪資是否正確。</li>
+        </ul>
+        <div id="result"></div>
+      </div>
     </div>
 
   </div>
@@ -411,16 +453,23 @@
       </details>
 
       <details>
-        <summary>多久查一次勞保年資比較好？</summary>
+        <summary>自由工作者也需要查勞保年資嗎？</summary>
         <p>
-          一般建議每年至少查詢一次。若剛離職、轉職、開始接案、自營作業或準備退休，建議立即查詢確認。
+          需要。自由工作者、接案工作者與自營作業者常常沒有固定公司協助投保，更應該定期確認自己的投保狀況。
         </p>
       </details>
 
       <details>
-        <summary>自由工作者也需要查勞保年資嗎？</summary>
+        <summary>手機可以查勞保投保紀錄嗎？</summary>
         <p>
-          需要。自由工作者、接案工作者與自營作業者常常沒有固定公司協助投保，更應該定期確認自己的投保狀況。
+          可以。可使用手機進入勞保局 e 化服務系統，依系統提供的身分驗證方式登入後查詢個人投保資料。
+        </p>
+      </details>
+
+      <details>
+        <summary>沒有公司幫我投保怎麼辦？</summary>
+        <p>
+          若目前沒有固定雇主，建議先確認是否符合職業工會或其他投保方式，再評估如何銜接保障與年資。
         </p>
       </details>
 
@@ -540,7 +589,7 @@ function checkYears() {
 
   if (!age || Number.isNaN(age) || Number.isNaN(years) || age <= 0 || years < 0) {
     result.innerHTML = `
-      <div class="panel">
+      <div class="result-card">
         <p><strong>請先輸入目前年齡與查到的勞保年資。</strong></p>
       </div>
     `;
@@ -561,7 +610,7 @@ function checkYears() {
   }
 
   result.innerHTML = `
-    <div class="panel">
+    <div class="result-card">
       <p>距離 65 歲約還有 <strong>${yearsLeft}</strong> 年。</p>
       <p>目前查到的勞保年資約 <strong>${years}</strong> 年。</p>
       <p>若之後持續投保到 65 歲，粗估年資可能約為 <strong>${estimatedTotalYears.toFixed(1)}</strong> 年。</p>
@@ -580,8 +629,9 @@ function diagnoseLabor() {
 
   if (!employer || !jobtype || !insurance || !quit) {
     result.innerHTML = `
-      <div class="panel">
-        請先完成所有問題。
+      <div class="result-card">
+        <h3>還差一點點</h3>
+        <p>請先完成 4 題，才能給你比較準確的建議。</p>
       </div>
     `;
     return;
@@ -608,15 +658,51 @@ function diagnoseLabor() {
   }
 
   result.innerHTML = `
-    <div class="panel">
+    <div class="result-card">
       <h3>${level}</h3>
       <p>${advice}</p>
       <div style="margin-top:18px;">
         <a class="btn btn-primary" href="https://line.me/R/ti/p/@097srncp" target="_blank" rel="noopener">LINE 免費諮詢</a>
+        <a class="btn btn-ghost" href="#query-methods">看查詢方式</a>
       </div>
     </div>
   `;
 }
+
+function updateDiagnosisProgress() {
+  const ids = ["employer", "jobtype", "insurance", "quit"];
+  const completed = ids.filter((id) => document.getElementById(id).value).length;
+  const progress = document.getElementById("diagnosisProgress");
+
+  if (progress) {
+    progress.style.width = `${completed / ids.length * 100}%`;
+  }
+}
+
+document.querySelectorAll(".choice-card").forEach((button) => {
+  button.addEventListener("click", () => {
+    const target = button.dataset.target;
+    const input = document.getElementById(target);
+
+    if (!input) return;
+
+    input.value = button.dataset.value;
+
+    document.querySelectorAll(`.choice-card[data-target="${target}"]`).forEach((item) => {
+      item.classList.remove("is-selected");
+    });
+
+    button.classList.add("is-selected");
+    updateDiagnosisProgress();
+
+    const ids = ["employer", "jobtype", "insurance", "quit"];
+    const isComplete = ids.every((id) => document.getElementById(id).value);
+
+    if (isComplete) {
+      diagnoseLabor();
+    }
+  });
+});
 </script>
 
 <script type="application/ld+json">
@@ -642,18 +728,26 @@ function diagnoseLabor() {
     },
     {
       "@type": "Question",
-      "name": "多久查一次勞保年資比較好？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "一般建議每年至少查詢一次。若剛離職、轉職、開始接案、自營作業或準備退休，建議立即查詢確認。"
-      }
-    },
-    {
-      "@type": "Question",
       "name": "自由工作者也需要查勞保年資嗎？",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "需要。自由工作者、接案工作者與自營作業者常常沒有固定公司協助投保，更應該定期確認自己的投保狀況。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "手機可以查勞保投保紀錄嗎？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "可以。可使用手機進入勞保局 e 化服務系統，依系統提供的身分驗證方式登入後查詢個人投保資料。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "沒有公司幫我投保怎麼辦？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "若目前沒有固定雇主，建議先確認是否符合職業工會或其他投保方式，再評估如何銜接保障與年資。"
       }
     },
     {
