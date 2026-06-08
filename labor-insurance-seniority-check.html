@@ -24,26 +24,34 @@
 
 <link rel="stylesheet" href="style.css">
 <style>
-.seniority-hero{padding:42px 0 34px;}
-.seniority-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,460px);gap:22px;align-items:stretch;}
-.seniority-hero h1{margin:12px 0;font-size:clamp(30px,4vw,48px);line-height:1.14;}
-.search-chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0;}
-.search-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid rgba(91,141,239,0.16);background:rgba(255,255,255,0.72);color:#405274;font-size:13px;font-weight:800;}
-.quick-panel{border:1px solid rgba(120,150,200,0.16);border-radius:20px;background:rgba(255,255,255,0.9);box-shadow:0 18px 46px rgba(80,120,180,0.14);padding:20px;}
-.quick-panel h2{margin:0 0 6px;font-size:22px;}
-.question-block{margin-top:16px;}
-.question-title{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px;font-weight:900;color:#243454;}
-.question-count{color:var(--brand);font-size:13px;white-space:nowrap;}
-.option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+.seniority-page{background:#f6f8fb;}
+.seniority-page::before,.seniority-page::after{display:none;}
+.seniority-hero{padding:38px 0 30px;background:linear-gradient(180deg,#fff 0%,#f6f8fb 100%);border-bottom:1px solid rgba(120,150,200,0.12);}
+.seniority-hero-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(390px,1.1fr);gap:34px;align-items:center;}
+.seniority-hero h1{max-width:12em;margin:14px 0 12px;font-size:clamp(30px,3.2vw,42px);line-height:1.16;letter-spacing:0;color:#17233f;}
+.seniority-hero .lead{max-width:34em;font-size:16px;color:#4b5c7d;}
+.search-chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 20px;}
+.search-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid #dbe6f6;background:#fff;color:#405274;font-size:13px;font-weight:800;}
+.quick-panel{border:1px solid #dbe6f6;border-radius:18px;background:#fff;box-shadow:0 18px 42px rgba(43,75,120,0.10);padding:24px;}
+.quick-panel h2{margin:0 0 6px;font-size:24px;letter-spacing:0;color:#17233f;}
+.wizard-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px;}
+.wizard-step{display:inline-flex;align-items:center;justify-content:center;min-width:70px;padding:6px 10px;border-radius:999px;background:#eef4ff;color:#4f7fe5;font-weight:900;font-size:13px;}
+.question-block{display:none;}
+.question-block.is-active{display:block;}
+.question-title{margin:18px 0 12px;font-size:24px;line-height:1.25;font-weight:900;color:#17233f;}
+.question-hint{margin:0 0 16px;color:#6b7a99;font-weight:700;}
+.option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
 .option-grid.three{grid-template-columns:repeat(3,minmax(0,1fr));}
-.choice-card{width:100%;min-height:58px;border:1px solid rgba(120,150,200,0.18);border-radius:14px;background:rgba(248,251,255,0.9);color:#263856;cursor:pointer;padding:10px 12px;text-align:left;font:inherit;font-weight:900;transition:transform .15s ease,border-color .15s ease,background .15s ease,box-shadow .15s ease;}
-.choice-card span{display:block;margin-top:2px;color:#6b7a99;font-size:12px;font-weight:700;line-height:1.35;}
-.choice-card:hover,.choice-card.is-selected{transform:translateY(-1px);border-color:rgba(91,141,239,0.45);background:linear-gradient(135deg,rgba(91,141,239,0.12),rgba(126,214,195,0.16));box-shadow:0 12px 26px rgba(80,120,180,0.12);}
-.choice-card.is-selected::before{content:"✓ ";color:var(--brand);}
-.progress-track{height:8px;border-radius:999px;background:rgba(91,141,239,0.12);overflow:hidden;margin:14px 0 2px;}
-.progress-fill{width:0%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .2s ease;}
-.result-card{border-radius:16px;border:1px solid rgba(91,141,239,0.16);background:rgba(255,255,255,0.86);padding:16px;margin-top:16px;}
-.result-card h3{margin:0 0 8px;}
+.choice-card{width:100%;min-height:92px;border:1px solid #dbe6f6;border-radius:14px;background:#fff;color:#22314f;cursor:pointer;padding:14px;text-align:left;font:inherit;font-weight:900;transition:transform .15s ease,border-color .15s ease,background .15s ease,box-shadow .15s ease;}
+.choice-card span{display:block;margin-top:5px;color:#6b7a99;font-size:13px;font-weight:700;line-height:1.35;}
+.choice-card:hover,.choice-card.is-selected{transform:translateY(-1px);border-color:#5b8def;background:#f7fbff;box-shadow:0 10px 22px rgba(43,75,120,0.10);}
+.choice-card.is-selected{outline:3px solid rgba(91,141,239,0.14);}
+.progress-track{height:7px;border-radius:999px;background:#edf2fa;overflow:hidden;margin:4px 0 2px;}
+.progress-fill{width:25%;height:100%;border-radius:inherit;background:#5b8def;transition:width .2s ease;}
+.wizard-actions{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:18px;}
+.text-button{border:0;background:transparent;color:#5b6d8f;font:inherit;font-weight:900;cursor:pointer;padding:10px 0;}
+.result-card{border-radius:16px;border:1px solid #dbe6f6;background:#f8fbff;padding:16px;margin-top:18px;}
+.result-card h3{margin:0 0 8px;color:#17233f;}
 .interactive-tool{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:18px;align-items:start;}
 .tool-fields{display:grid;gap:12px;}
 .field-card{display:grid;gap:6px;}
@@ -53,12 +61,12 @@
 .route-card{display:block;text-decoration:none;border:1px solid rgba(120,150,200,0.14);border-radius:16px;padding:16px;background:rgba(255,255,255,0.8);box-shadow:var(--shadow);}
 .route-card strong{display:block;margin-bottom:4px;}
 .route-card span{color:var(--muted);font-size:14px;}
-@media (max-width:980px){.seniority-hero-grid,.interactive-tool{grid-template-columns:1fr;}.route-grid{grid-template-columns:1fr 1fr;}}
-@media (max-width:640px){.option-grid,.option-grid.three,.route-grid{grid-template-columns:1fr;}}
+@media (max-width:980px){.seniority-hero-grid,.interactive-tool{grid-template-columns:1fr;}.route-grid{grid-template-columns:1fr 1fr;}.seniority-hero h1{max-width:100%;}}
+@media (max-width:640px){.quick-panel{padding:18px}.option-grid,.option-grid.three,.route-grid{grid-template-columns:1fr;}.question-title{font-size:21px}.choice-card{min-height:auto}.wizard-actions{align-items:flex-start;flex-direction:column-reverse;}}
 </style>
 </head>
 
-<body>
+<body class="seniority-page">
 
 <div class="topbar">
   <div class="container topbar-inner">
@@ -144,8 +152,13 @@
       </div>
 
       <div class="quick-panel" id="diagnosis">
-        <h2>互動式勞保狀況診斷</h2>
-        <p class="muted">點選符合你的狀況，系統會給你下一步建議。</p>
+        <div class="wizard-head">
+          <div>
+            <h2>勞保狀況快篩</h2>
+            <p class="muted">回答 4 題，先抓出你最需要確認的地方。</p>
+          </div>
+          <span class="wizard-step" id="wizardStep">1 / 4</span>
+        </div>
 
         <input type="hidden" id="employer">
         <input type="hidden" id="jobtype">
@@ -156,16 +169,18 @@
           <div class="progress-fill" id="diagnosisProgress"></div>
         </div>
 
-        <div class="question-block">
-          <div class="question-title">目前有固定雇主嗎？ <span class="question-count">1 / 4</span></div>
+        <div class="question-block is-active" data-step="0">
+          <div class="question-title">目前有固定雇主嗎？</div>
+          <p class="question-hint">這會影響你是否通常由公司協助加保。</p>
           <div class="option-grid">
             <button class="choice-card" type="button" data-target="employer" data-value="yes">有固定雇主<span>公司或雇主有協助加保</span></button>
             <button class="choice-card" type="button" data-target="employer" data-value="no">沒有固定雇主<span>接案、自營或暫時沒有公司</span></button>
           </div>
         </div>
 
-        <div class="question-block">
-          <div class="question-title">目前工作型態？ <span class="question-count">2 / 4</span></div>
+        <div class="question-block" data-step="1">
+          <div class="question-title">目前工作型態？</div>
+          <p class="question-hint">選最接近你現在主要收入來源的狀況。</p>
           <div class="option-grid three">
             <button class="choice-card" type="button" data-target="jobtype" data-value="employee">上班族<span>受僱工作</span></button>
             <button class="choice-card" type="button" data-target="jobtype" data-value="freelancer">自由工作<span>接案或斜槓</span></button>
@@ -173,8 +188,9 @@
           </div>
         </div>
 
-        <div class="question-block">
-          <div class="question-title">目前有勞保嗎？ <span class="question-count">3 / 4</span></div>
+        <div class="question-block" data-step="2">
+          <div class="question-title">目前確定有勞保嗎？</div>
+          <p class="question-hint">如果不確定，建議先查投保紀錄，不要用猜的。</p>
           <div class="option-grid three">
             <button class="choice-card" type="button" data-target="insurance" data-value="yes">有<span>確定目前有投保</span></button>
             <button class="choice-card" type="button" data-target="insurance" data-value="no">沒有<span>目前沒有加保</span></button>
@@ -182,17 +198,18 @@
           </div>
         </div>
 
-        <div class="question-block">
-          <div class="question-title">最近一年是否離職過？ <span class="question-count">4 / 4</span></div>
+        <div class="question-block" data-step="3">
+          <div class="question-title">最近一年是否離職過？</div>
+          <p class="question-hint">離職、轉職之間最容易出現勞保空窗。</p>
           <div class="option-grid">
             <button class="choice-card" type="button" data-target="quit" data-value="yes">有離職或轉職<span>建議確認退保與加保日期</span></button>
             <button class="choice-card" type="button" data-target="quit" data-value="no">沒有<span>可先檢查投保資料是否正確</span></button>
           </div>
         </div>
 
-        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn btn-primary" type="button" onclick="diagnoseLabor()">看我的建議</button>
-          <a class="btn btn-ghost" href="#tool">檢查年資</a>
+        <div class="wizard-actions">
+          <button class="text-button" type="button" id="wizardBack">上一步</button>
+          <button class="text-button" type="button" id="wizardReset">重新開始</button>
         </div>
 
         <div id="diagnosisResult"></div>
@@ -653,8 +670,8 @@ function diagnoseLabor() {
     level = "建議確認退保與加保日期";
     advice = "最近一年曾離職或轉職，建議確認原單位退保日期與新單位加保日期是否銜接。";
   } else {
-    level = "目前狀況可定期追蹤";
-    advice = "建議每年至少查詢一次勞保年資，確認投保資料、投保薪資與投保單位是否正確。";
+    level = "目前狀況先確認資料是否正確";
+    advice = "你可以先查詢投保紀錄，確認目前投保單位、投保薪資與累積年資是否正確。";
   }
 
   result.innerHTML = `
@@ -669,13 +686,36 @@ function diagnoseLabor() {
   `;
 }
 
+let currentDiagnosisStep = 0;
+const diagnosisIds = ["employer", "jobtype", "insurance", "quit"];
+
+function showDiagnosisStep(step) {
+  currentDiagnosisStep = Math.max(0, Math.min(step, diagnosisIds.length - 1));
+
+  document.querySelectorAll(".question-block").forEach((block) => {
+    block.classList.toggle("is-active", Number(block.dataset.step) === currentDiagnosisStep);
+  });
+
+  const stepLabel = document.getElementById("wizardStep");
+  const backButton = document.getElementById("wizardBack");
+
+  if (stepLabel) {
+    stepLabel.textContent = `${currentDiagnosisStep + 1} / ${diagnosisIds.length}`;
+  }
+
+  if (backButton) {
+    backButton.style.visibility = currentDiagnosisStep === 0 ? "hidden" : "visible";
+  }
+
+  updateDiagnosisProgress();
+}
+
 function updateDiagnosisProgress() {
-  const ids = ["employer", "jobtype", "insurance", "quit"];
-  const completed = ids.filter((id) => document.getElementById(id).value).length;
+  const completed = diagnosisIds.filter((id) => document.getElementById(id).value).length;
   const progress = document.getElementById("diagnosisProgress");
 
   if (progress) {
-    progress.style.width = `${completed / ids.length * 100}%`;
+    progress.style.width = `${Math.max((currentDiagnosisStep + 1) / diagnosisIds.length, completed / diagnosisIds.length) * 100}%`;
   }
 }
 
@@ -695,14 +735,36 @@ document.querySelectorAll(".choice-card").forEach((button) => {
     button.classList.add("is-selected");
     updateDiagnosisProgress();
 
-    const ids = ["employer", "jobtype", "insurance", "quit"];
-    const isComplete = ids.every((id) => document.getElementById(id).value);
+    const isComplete = diagnosisIds.every((id) => document.getElementById(id).value);
 
     if (isComplete) {
       diagnoseLabor();
+    } else {
+      document.getElementById("diagnosisResult").innerHTML = "";
+      showDiagnosisStep(currentDiagnosisStep + 1);
     }
   });
 });
+
+document.getElementById("wizardBack").addEventListener("click", () => {
+  document.getElementById("diagnosisResult").innerHTML = "";
+  showDiagnosisStep(currentDiagnosisStep - 1);
+});
+
+document.getElementById("wizardReset").addEventListener("click", () => {
+  diagnosisIds.forEach((id) => {
+    document.getElementById(id).value = "";
+  });
+
+  document.querySelectorAll(".choice-card").forEach((button) => {
+    button.classList.remove("is-selected");
+  });
+
+  document.getElementById("diagnosisResult").innerHTML = "";
+  showDiagnosisStep(0);
+});
+
+showDiagnosisStep(0);
 </script>
 
 <script type="application/ld+json">
