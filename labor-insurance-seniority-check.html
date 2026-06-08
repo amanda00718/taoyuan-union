@@ -202,46 +202,213 @@
   </div>
 </section>
 
-<section class="section" id="tool">
-  <div class="container">
+<section class="section section-alt" id="diagnosis">
 
-    <div class="section-head">
-      <h2>勞保年資簡易試算工具</h2>
-      <p class="muted">
-        這個工具不是正式給付試算，只是幫你快速了解目前年齡、年資與距離退休的大概狀況。
-      </p>
-    </div>
+<div class="container">
 
-    <div class="panel">
+<div class="section-head">
 
-      <label for="age"><strong>目前年齡</strong></label>
-      <input
-        type="number"
-        id="age"
-        placeholder="例如 35"
-        style="width:100%; max-width:360px; padding:12px; margin:8px 0 16px; border:1px solid #d7dde8; border-radius:12px;"
-      >
+<h2>3分鐘勞保資格診斷</h2>
+<p class="muted">
+回答幾個問題，快速了解目前勞保狀況與建議方向。
+</p>
 
-      <label for="years"><strong>目前勞保年資</strong></label>
-      <input
-        type="number"
-        id="years"
-        placeholder="例如 10"
-        style="width:100%; max-width:360px; padding:12px; margin:8px 0 16px; border:1px solid #d7dde8; border-radius:12px;"
-      >
+</div>
 
-      <br>
+<div class="panel">
 
-      <button class="btn btn-primary" type="button" onclick="checkYears()">
-        立即試算
-      </button>
+<label>目前有固定雇主嗎？</label>
 
-      <div id="result" style="margin-top:20px;"></div>
+<select id="employer">
+  <option value="">請選擇</option>
+  <option value="yes">有固定雇主</option>
+  <option value="no">沒有固定雇主</option>
+</select>
 
-    </div>
+<br><br>
 
-  </div>
+<label>目前工作型態？</label>
+
+<select id="jobtype">
+  <option value="">請選擇</option>
+  <option value="employee">上班族</option>
+  <option value="freelancer">自由工作者</option>
+  <option value="self">自營作業者</option>
+  <option value="creator">創作者／自媒體</option>
+  <option value="business">創業者</option>
+</select>
+
+<br><br>
+
+<label>目前有勞保嗎？</label>
+
+<select id="insurance">
+  <option value="">請選擇</option>
+  <option value="yes">有</option>
+  <option value="no">沒有</option>
+  <option value="unknown">不知道</option>
+</select>
+
+<br><br>
+
+<label>最近一年是否離職過？</label>
+
+<select id="quit">
+  <option value="">請選擇</option>
+  <option value="yes">是</option>
+  <option value="no">否</option>
+</select>
+
+<br><br>
+
+<button class="btn btn-primary" onclick="diagnoseLabor()">
+立即診斷
+</button>
+
+<div id="diagnosisResult" style="margin-top:25px;"></div>
+
+</div>
+
+</div>
+
 </section>
+
+<script>
+
+function diagnoseLabor(){
+
+const employer =
+document.getElementById("employer").value;
+
+const jobtype =
+document.getElementById("jobtype").value;
+
+const insurance =
+document.getElementById("insurance").value;
+
+const quit =
+document.getElementById("quit").value;
+
+const result =
+document.getElementById("diagnosisResult");
+
+if(
+!employer ||
+!jobtype ||
+!insurance ||
+!quit
+){
+result.innerHTML=
+`
+<div class="panel">
+請先完成所有問題。
+</div>
+`;
+return;
+}
+
+let level = "";
+let advice = "";
+
+if(
+employer==="no" &&
+insurance==="no"
+){
+
+level =
+"⚠️ 勞保中斷風險較高";
+
+advice =
+`
+你目前沒有固定雇主，
+且沒有勞保。
+
+建議盡快了解適合自己的投保方式，
+避免勞保年資長期中斷。
+`;
+
+}
+
+else if(
+employer==="no" &&
+insurance==="unknown"
+){
+
+level =
+"⚠️ 建議立即確認勞保狀況";
+
+advice =
+`
+你目前不確定自己是否有勞保。
+
+建議先查詢投保紀錄，
+確認目前保障狀況。
+`;
+
+}
+
+else if(
+jobtype==="freelancer" ||
+jobtype==="creator" ||
+jobtype==="self"
+){
+
+level =
+"✅ 自由工作型態";
+
+advice =
+`
+自由工作者、
+創作者與自營工作者，
+
+建議定期確認勞保是否持續累積。
+`;
+
+}
+
+else{
+
+level =
+"✅ 目前保障狀況正常";
+
+advice =
+`
+建議每年至少查詢一次勞保年資，
+確認投保資料是否正確。
+`;
+
+}
+
+result.innerHTML=
+`
+
+<div class="panel">
+
+<h3>${level}</h3>
+
+<p>${advice}</p>
+
+<div style="margin-top:18px;">
+
+<a
+class="btn btn-primary"
+href="https://line.me/R/ti/p/@097srncp"
+target="_blank"
+rel="noopener">
+
+LINE 免費諮詢
+
+</a>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+</script>
 
 <section class="section section-alt">
   <div class="container">
