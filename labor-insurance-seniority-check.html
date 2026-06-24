@@ -634,6 +634,19 @@
 <script src="app.js"></script>
 
 <script>
+// 精簡微調原有的 interactive-tool 微數據標記
+document.addEventListener("DOMContentLoaded", function() {
+  const toolEl = document.querySelector('.interactive-tool');
+  if (toolEl) {
+    toolEl.setAttribute('itemscope', '');
+    toolEl.setAttribute('itemtype', 'https://schema.org/WebApplication');
+  }
+  const btnEl = document.querySelector('.interactive-tool .btn-primary');
+  if (btnEl) {
+    btnEl.setAttribute('aria-label', '執行勞保退休年資與加保建議試算');
+  }
+});
+
 function checkYears() {
   const ageInput = document.getElementById("age");
   const yearsInput = document.getElementById("years");
@@ -765,7 +778,7 @@ function diagnoseLabor() {
   } else {
     badge = "資料檢查";
     level = "目前狀況先確認資料是否正確";
-    advice = "你可以先查詢投保紀錄，確認目前投保單位、投保薪資與累積年資是否正確。";
+    advice = "你可以先查詢投保紀錄，確認目前投保單位、投保薪資與累積年資是否正確. ";
     nextSteps = [
       ["查看目前投保單位", "確認是不是現在的工作單位。"],
       ["檢查投保薪資", "看投保薪資是否和實際情況有明顯落差。"],
@@ -886,60 +899,84 @@ showDiagnosisStep(0);
 </script>
 
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "查不到勞保年資怎麼辦？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "可能是登入方式、身分驗證或查詢項目不正確，也可能目前沒有勞保投保紀錄。建議先確認登入方式，再查看個人投保資料或向勞保局確認。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "勞保年資中斷會不見嗎？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "過去已累積的年資通常會保留，但中斷期間不會繼續累積。如果離職後沒有新投保單位，就需要留意保障空窗。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "自由工作者也需要查勞保年資嗎？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "需要。自由工作者、接案工作者與自營作業者常常沒有固定公司協助投保，更應該定期確認自己的投保狀況。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "手機可以查勞保投保紀錄嗎？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "可以。可使用手機進入勞保局 e 化服務系統，依系統提供的身分驗證方式登入後查詢個人投保資料。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "沒有公司幫我投保怎麼辦？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "若目前沒有固定雇主，建議先確認是否符合職業工會或其他投保方式，再評估如何銜接保障與年資。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "這個頁面的工具可以算出正式退休金嗎？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "不可以。本頁工具只做初步提醒，不能取代官方查詢、正式給付試算或勞保局審核結果。"
-      }
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "桃園市生活助理從業人員職業工會",
+    "url": "https://tynunion.com",
+    "logo": "https://tynunion.com/favicon.png",
+    "telephone": "+886-3-494-1777",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "桃園市",
+      "addressRegion": "中壢區",
+      "streetAddress": "民權路132號3樓"
     }
-  ]
-}
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "勞保狀況快篩與年資初步建議工具",
+    "operatingSystem": "All",
+    "applicationCategory": "BusinessApplication",
+    "description": "幫助台灣勞工透過年齡與現有勞保年資，快速診斷轉職、離職空窗期以及評估工會加保銜接之互動試算工具。"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "查不到勞保年資怎麼辦？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "可能是登入方式、身分驗證或查詢項目不正確，也可能目前沒有勞保投保紀錄。建議先確認登入方式，再查看個人投保資料或向勞保局確認。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "勞保年資中斷會不見嗎？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "過去已累積的年資通常會保留，但中斷期間不會繼續累積。如果離職後沒有新投保單位，就需要留意保障空窗。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "自由工作者也需要查勞保年資嗎？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "需要。自由工作者、接案工作者與自營作業者常常沒有固定公司協助投保，更應該定期確認自己的投保狀況。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "手機可以查勞保投保紀錄嗎？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "可以。可使用手機進入勞保局 e 化服務系統，依系統提供的身分驗證方式登入後查詢個人投保資料。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "沒有公司幫我投保怎麼辦？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "若目前沒有固定雇主，建議先確認是否符合職業工會或其他投保方式，再評估如何銜接保障與年資。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "這個頁面的工具可以算出正式退休金嗎？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不可以。本頁工具只做初步提醒，不能取代官方查詢、正式給付試算或勞保局審核結果。"
+        }
+      }
+    ]
+  }
+]
 </script>
 
 </body>
