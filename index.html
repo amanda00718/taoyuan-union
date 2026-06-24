@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- 1. 自動洗網址轉址：一秒消除 index.html 統一網址，權重完美集中 -->
+  <script>
+    if (window.location.pathname.endsWith('/index.html')) {
+      var newPath = window.location.pathname.replace(/\/index.html$/, '/');
+      window.location.replace(window.location.origin + newPath + window.location.search + window.location.hash);
+    }
+  </script>
+
   <!-- SEO 與原始來源 -->
   <link rel="canonical" href="https://tynunion.com/" />
   <meta name="robots" content="index,follow,max-image-preview:large">
@@ -18,7 +26,7 @@
   <link rel="icon" type="image/png" href="https://tynunion.com/og-image.jpg">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <!-- SEO 標題與描述 -->
+  <!-- SEO 標題與描述（融入大眾最常搜尋的痛點字組，增加點擊率） -->
   <title>桃園職業工會推薦｜勞保怎麼保？自由工作者、無一定雇主可加入</title>
   <meta name="description" content="桃園職業工會推薦｜提供無一定雇主勞工、自營作業者、自由工作者與接案工作者了解勞保與健保投保方式，合法立案工會、38年會務經驗、政府補助40%保費，LINE即可線上諮詢投保。">
 
@@ -36,7 +44,7 @@
   <meta name="twitter:description" content="桃園職業工會推薦｜提供無一定雇主勞工、自營作業者、自由工作者與接案工作者了解勞保與健保投保方式，合法立案工會、38年會務經驗、政府補助40%保費，LINE即可線上諮詢投保。">
   <meta name="twitter:image" content="https://tynunion.com/og-image.jpg">
 
-  <!-- 品牌 / 組織結構化資料 -->
+  <!-- 2. AI 優先讀取的結構化資料（LD+JSON）：餵給 AI 爬蟲最權威、最明確的實體關係數據 -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,7 +53,8 @@
     "alternateName": [
       "桃園職業工會",
       "桃園職業工會推薦",
-      "生活助理工會",
+      "桃園生活助理工會",
+      "桃園長照生活助理工會",
       "生活助理職業工會"
     ],
     "url": "https://tynunion.com/",
@@ -135,7 +144,8 @@
 
   <header class="header" id="top">
     <div class="container header-inner">
-      <a class="brand" href="index.html">
+      <!-- 3. 關鍵修正：原先此處 href="index.html" 已修正為 "/" 避免死灰復燃 -->
+      <a class="brand" href="/">
         <img src="favicon.png" class="brand-logo" alt="桃園市生活助理從業人員職業工會 Logo" draggable="false" oncontextmenu="return false;">
         <span class="brand-text">
           <span class="brand-title">桃園市生活助理從業人員職業工會</span>
@@ -179,14 +189,15 @@
   </header>
 
   <main>
-    <section class="hero">
+<section class="hero">
       <div class="container hero-inner">
         <div>
           <div class="kicker">安心投保・清楚說明・專人協助</div>
-          <h1>勞保中斷、沒有公司幫你保？<br><span class="accent">現在就可以重新開始</span></h1>
+          <!-- 融入長照、接案熱門關鍵字，加強 SEO 與 AI 抓取率 -->
+          <h1>長照居服、勞保中斷、沒公司幫你保？<br><span class="accent">現在就可以重新開始</span></h1>
 
           <p class="lead">
-            如果你是生活助理、自由工作者、接案工作者、沒有固定雇主，
+            如果你是<strong>生活助理、長照接案人員、居家照顧服務員、私人看護</strong>、自由工作者、接案工作者、沒有固定雇主，
             透過桃園市生活助理從業人員職業工會，
             就有機會申請加入勞保與健保，<strong>並享有政府補助 40% 保費</strong>。
           </p>
@@ -198,7 +209,7 @@
           </p>
 
           <p>
-            如果你正在找桃園職業工會推薦，或想了解自由工作者、接案工作者、
+            如果你正在找桃園職業工會推薦，或想了解<strong>長照從業人員</strong>、自由工作者、接案工作者、
             無一定雇主勞工與自營作業者是否能透過職業工會辦理勞保與健保，
             這裡整理了加入資格、辦理方式與常見問題，幫你快速判斷下一步。
           </p>
@@ -213,11 +224,12 @@
             <span class="pill">合法立案工會</span>
             <span class="pill">年資可銜接</span>
             <span class="pill">政府補助 40%</span>
+            <span class="pill">歡迎長照居服</span> <!-- 新增標籤 -->
           </div>
         </div>
 
         <div class="panel">
-          <h3>很多人都是因為這些情況來找我們</h3>
+          <h3>很多人都是因為 these 情況來找我們</h3>
 
           <div class="grid-3" style="grid-template-columns:1fr; margin-top:12px;">
             <article class="card">
