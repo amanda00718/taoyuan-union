@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>線上入會申辦系統 - 桃園市生活助理從業人員職業工會</title>
+    <!-- Tailwind CSS 適用於精美 UI 排版 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- PDF-Lib 用於在瀏覽器端極速讀寫、編輯 PDF、嵌入簽名與文字 -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <!-- PDF.js 用於將 PDF 頁面高畫質渲染至網頁 Canvas 上供使用者預覽 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <!-- Signature Pad 適用於完美流暢的滑鼠/觸控手寫簽名 -->
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+    <!-- Google 字型 Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+        }
+        /* 拖曳欄位的定位與動態虛線框樣式 */
+        .draggable-field {
+            position: absolute;
+            cursor: move;
+            user-select: none;
+            touch-action: none;
+            border: 2px dashed #2563eb;
+            background-color: rgba(37, 99, 235, 0.15);
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px 6px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s, border-color 0.2s;
+            white-space: nowrap;
+        }
+        .draggable-field:hover {
+            background-color: rgba(37, 99, 235, 0.3);
+            border-color: #1d4ed8;
+        }
+        .draggable-field.active {
+            border-color: #dc2626;
+            background-color: rgba(220, 38, 38, 0.2);
+            color: #7f1d1d;
+        }
+        /* 簽名板樣式優化，保證觸控與滑鼠絕不衝突 */
+        .signature-container {
+            border: 2px solid #cbd5e1;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.06);
+        }
+        .signature-pad-canvas {
+            width: 100%;
+            height: 180px;
+            display: block;
+            touch-action: none; /* 禁用瀏覽器觸控滾動，使手寫簽名更專注滑順 */
+            cursor: crosshair;
+        }
+        /* 美化滾動條 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col">
+
+    <!-- 頂部精美導航欄 -->
+    <header class="bg-gradient-to-r from-blue-800 to-indigo-900 text-white shadow-md py-4 px-6 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            
+            <!-- 回首頁與標題組合 -->
+            <div class="flex items-center gap-3">
+                <!-- 預留連結到你們的首頁 -->
+                <a href="https://tynunion.com" class="px-3 py-1.5 bg-blue-700/60 hover:bg-blue-600 border border-blue-500/30 rounded-lg text-xs font-medium flex items-center gap-1 transition-all">
+                    ⬅️ 返回工會首頁
+                </a>
+                <div class="h-6 w-[1px] bg-blue-500/30 hidden sm:block"></div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wider flex items-center gap-2">
+                        <span>桃園市生活助理從業人員職業工會</span>
+                    </h1>
+                    <p class="text-xs text-blue-200">免臨櫃線上申辦與手寫簽名系統 (獨立申辦專區)</p>
+                </div>
+            </div>
+            
+            <!-- 模式切換器 -->
+            <div class="flex bg-indigo-950/60 p-1 rounded-lg border border-indigo-700/50">
+                <button id="btn-mode-member" class="px-4 py-1.5 rounded-md text-sm font-medium transition-all bg-blue-600 text-white shadow">
+                    👥 會員填寫模式
+                </button>
+                <button id="btn-mode-admin" class="px-4 py-1.5 rounded-md text-sm font-medium transition-all text-indigo-200 hover:text-white">
+                    ⚙️ 工會欄位配置
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主體內容區 -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- 左側：控制面板 / 表單填寫 (5/12 寬) -->
+        <section class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- 會員填寫區 -->
+            <div id="panel-member" class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
+                <div class="border-b border-slate-100 pb-3">
+                    <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        <span class="p-1 bg-blue-50 text-blue-600 rounded-md text-sm">✍️</span> 第一步：請填寫基本資料
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">資料會自動套入工會入會申請書對應格線中</p>
+                </div>
+
+                <!-- 姓名與身分證（並排） -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">會員姓名 <span class="text-red-500">*</span></label>
+                        <input type="text" id="input-name" placeholder="王小明" 
+                               class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">身分證字號 <span class="text-red-500">*</span></label>
+                        <input type="text" id="input-id" placeholder="H123456789" 
+                               class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm uppercase">
+                    </div>
+                </div>
+
+                <!-- 出生日期與出生地（並排） -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">出生年月日 <span class="text-red-500">*</span></label>
+                        <input type="text" id="input-birth" placeholder="例：民國 75 年 10 月 12 日" 
+                               class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">出生地 <span class="text-red-500">*</span></label>
+                        <input type="text" id="input-birth-place" placeholder="例如：桃園市" value="桃園市"
+                               class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm">
+                    </div>
+                </div>
+
+                <!-- 聯絡電話與加保日（並排） -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">聯絡電話 <span class="text-red-500">*</span></label>
+                        <input type="text" id="input-phone" placeholder="0912-345678" 
+                               class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">希望加保日 <span class="text-red-500">*</span></label>
+                        <input type="text" id="input-insurance-date" placeholder="例：民國 115 年 06 月 25 日" 
+                               class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm">
+                    </div>
+                </div>
+
+                <!-- 通訊地址（結合 Google Autocomplete 與 桃園市模擬下拉） -->
+                <div class="relative">
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">
+                        通訊地址 <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="input-address" placeholder="請輸入或選擇通訊地址" 
+                               class="w-full pl-8 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm">
+                        <div class="absolute left-2.5 top-2.5 text-slate-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- 地址下拉選單 -->
+                    <div id="address-suggestions" class="absolute left-0 right-0 mt-1 bg-white border border-slate-200 rounded-lg shadow-lg z-50 hidden max-h-40 overflow-y-auto text-sm"></div>
+                </div>
+
+                <!-- 介紹人（單一全寬，乾淨無重疊） -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">介紹人姓名</label>
+                    <input type="text" id="input-referrer" placeholder="無介紹人可直接留空" 
+                           class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm">
+                </div>
+
+                <!-- 簽名板區 -->
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs font-semibold text-slate-700">申請人親筆簽章 <span class="text-red-500">*</span></label>
+                        <button id="btn-clear-sig" class="text-xs text-red-500 hover:text-red-600 font-medium flex items-center gap-1 transition-colors">
+                            🧹 清除重簽
+                        </button>
+                    </div>
+                    
+                    <div class="signature-container">
+                        <canvas id="signature-pad" class="signature-pad-canvas"></canvas>
+                    </div>
+                    <p class="text-[11px] text-slate-400 text-center">📱 桌機使用「滑鼠拖曳」、手機使用「手指/觸控筆」皆可流暢書寫。</p>
+                </div>
+
+                <!-- 下載按鈕 -->
+                <button id="btn-generate-pdf" class="w-full mt-1 py-3 px-4 bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white rounded-xl font-medium text-sm shadow-md shadow-blue-500/10 flex items-center justify-center gap-2 transition-all">
+                    💾 產生並下載官方格式 PDF
+                </button>
+            </div>
+
+            <!-- 工會配置區 (預設隱藏) -->
+            <div id="panel-admin" class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 flex flex-col gap-4 hidden">
+                <div class="border-b border-slate-100 pb-3">
+                    <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        <span class="p-1 bg-indigo-50 text-indigo-600 rounded-md">🛠️</span> 工會後台：申請書欄位配置
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1">微調格線對位座標。拖曳右側方框即可自動儲存。</p>
+                </div>
+
+                <!-- 上傳自訂 PDF 檔案 -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">上傳工會官方空白 PDF 申請書</label>
+                    <div class="flex items-center justify-center w-full">
+                        <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100 transition-all">
+                            <div class="flex flex-col items-center justify-center py-2 px-4 text-center">
+                                <p class="text-xs text-slate-600 font-medium mb-1">點擊此處上傳官方 PDF 申請書</p>
+                                <p class="text-[10px] text-slate-400">（如未上傳，系統預設會自動繪製官方精美表格）</p>
+                            </div>
+                            <input id="upload-pdf" type="file" accept=".pdf" class="hidden" />
+                        </label>
+                    </div>
+                    <div id="upload-status" class="text-xs text-blue-600 mt-1.5 font-medium hidden">已成功載入自訂 PDF！</div>
+                </div>
+
+                <!-- Google Places API 設定 -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">
+                        真實 Google Maps API 金鑰 (API Key)
+                    </label>
+                    <input type="password" id="admin-google-key" placeholder="貼上 AIzaSy 開頭的金鑰..." 
+                           class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-xs">
+                </div>
+
+                <!-- 拖拉座標即時數值 -->
+                <div class="border-t border-slate-100 pt-3">
+                    <h3 class="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">當前欄位定位座標 (百分比 %)</h3>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-slate-500">
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="font-bold text-slate-700">加保日:</span>
+                            <div id="coord-insuranceDate" class="font-mono text-blue-600">--</div>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="font-bold text-slate-700">姓名:</span>
+                            <div id="coord-name" class="font-mono text-blue-600">--</div>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="font-bold text-slate-700">身分證:</span>
+                            <div id="coord-id" class="font-mono text-blue-600">--</div>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="font-bold text-slate-700">出生年月日:</span>
+                            <div id="coord-birth" class="font-mono text-blue-600">--</div>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="font-bold text-slate-700">聯絡電話:</span>
+                            <div id="coord-phone" class="font-mono text-blue-600">--</div>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="font-bold text-slate-700">地址:</span>
+                            <div id="coord-address" class="font-mono text-blue-600">--</div>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="font-bold text-slate-700">出生地:</span>
+                            <div id="coord-birthPlace" class="font-mono text-blue-600">--</div>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="font-bold text-slate-700">介紹人:</span>
+                            <div id="coord-referrer" class="font-mono text-blue-600">--</div>
+                        </div>
+                        <div class="col-span-2 bg-slate-50 p-2 rounded border border-slate-100">
+                            <span class="font-bold text-slate-700">簽名處:</span>
+                            <div id="coord-signature" class="font-mono text-red-600">--</div>
+                        </div>
+                    </div>
+                    <button id="btn-save-coords" class="w-full mt-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium text-xs shadow transition-colors">
+                        💾 儲存此座標配置
+                    </button>
+                    <button id="btn-reset-coords" class="w-full mt-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg font-medium text-xs transition-colors">
+                        🔄 重設為出廠最佳座標
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 右側：PDF 即時對位與預覽 (7/12 寬) -->
+        <section class="lg:col-span-7 flex flex-col gap-4">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col gap-4 flex-1">
+                
+                <!-- 預覽區標題 -->
+                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <h2 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                        📄 官方格式預覽與欄位定位對位畫布
+                    </h2>
+                    <span id="preview-mode-tag" class="px-2.5 py-0.5 bg-blue-50 text-blue-700 border border-blue-100 text-xs rounded-full font-medium">
+                        目前：會員填寫檢視
+                    </span>
+                </div>
+
+                <!-- 貼心提示（動態顯示） -->
+                <div id="tips-banner" class="bg-blue-50 border border-blue-200/80 p-3 rounded-xl text-xs text-blue-800 flex items-start gap-2">
+                    <span class="text-base leading-none">💡</span>
+                    <p id="tips-text">您填寫左側基本資料時，右側對位區會呈現模擬效果。請確認欄位是否填寫完整，簽名完畢後點擊下載即可生成完成的 PDF 申請書。</p>
+                </div>
+
+                <!-- PDF 渲染畫布之主容器 (相對定位) -->
+                <div class="flex-1 flex justify-center items-start bg-slate-100/60 rounded-xl border border-slate-200/50 p-2 overflow-auto max-h-[680px] relative">
+                    
+                    <div id="pdf-wrapper" class="relative shadow-md bg-white overflow-hidden origin-top-left">
+                        <!-- 由 PDF.js 渲染的 Canvas 背景圖 -->
+                        <canvas id="pdf-render-canvas" class="block w-full h-auto"></canvas>
+                        
+                        <!-- 覆蓋於 Canvas 之上的 HTML 交互元件層 -->
+                        <div id="pdf-interactive-layer" class="absolute inset-0 pointer-events-none">
+                            
+                            <!-- 拖拉對位用物件 -->
+                            <div id="drag-field-insurance-date" class="draggable-field" data-field="insuranceDate">加保日處</div>
+                            <div id="drag-field-name" class="draggable-field" data-field="name">姓名處</div>
+                            <div id="drag-field-id" class="draggable-field" data-field="id">身分證處</div>
+                            <div id="drag-field-birth" class="draggable-field" data-field="birth">生日處</div>
+                            <div id="drag-field-phone" class="draggable-field" data-field="phone">電話處</div>
+                            <div id="drag-field-address" class="draggable-field" data-field="address">地址處</div>
+                            <div id="drag-field-birth-place" class="draggable-field" data-field="birthPlace">出生地處</div>
+                            <div id="drag-field-referrer" class="draggable-field" data-field="referrer">介紹人處</div>
+                            <div id="drag-field-signature" class="draggable-field border-red-500 bg-red-500/20 text-red-800 font-bold" data-field="signature">簽名處</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁尾宣告 -->
+    <footer class="bg-slate-800 text-slate-400 text-center py-4 text-xs border-t border-slate-700">
+        © 2026 桃園市生活助理從業人員職業工會 版權所有 · 數位化會務服務專區
+    </footer>
+
+    <!-- 全域控制與 PDF 處理邏輯 -->
+    <script>
+        // 設定 PDF.js 的背景 Worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+        // 全域核心狀態
+        let currentMode = 'member'; // 'member' | 'admin'
+        let pdfDoc = null;          // PDF.js 文件實例
+        let rawPdfBytes = null;     // PDF 原始二進制數據 (Uint8Array)
+        let signaturePad = null;    // 簽名板實例
+        let currentDragElement = null;
+        let dragOffset = { x: 0, y: 0 };
+
+        // 預設欄位座標設定（相對於官方 A4 格式排版的黃金座標比例）
+        const defaultCoordinates = {
+            insuranceDate: { x: 0.60, y: 0.125 },
+            name: { x: 0.17, y: 0.18 },
+            id: { x: 0.49, y: 0.18 },
+            birth: { x: 0.17, y: 0.22 },
+            phone: { x: 0.49, y: 0.22 },
+            address: { x: 0.17, y: 0.26 },
+            birthPlace: { x: 0.17, y: 0.31 },
+            referrer: { x: 0.17, y: 0.73 },
+            signature: { x: 0.65, y: 0.70, w: 0.22, h: 0.08 }
+        };
+
+        let fieldCoordinates = { ...defaultCoordinates };
+
+        // 嘗試從本地儲存讀取自訂座標設定
+        const savedCoords = localStorage.getItem('tyn_pdf_coords');
+        if (savedCoords) {
+            try {
+                fieldCoordinates = JSON.parse(savedCoords);
+            } catch (e) {
+                fieldCoordinates = { ...defaultCoordinates };
+            }
+        }
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', async () => {
+            initSignaturePad();
+            setupModeToggles();
+            setupDraggableLogic();
+            setupAutocomplete();
+            setupPdfUpload();
+            setupGoogleKeyInput();
+            
+            // 自動生成一張完全符合官方格線與文字排版的 A4 模擬申請書
+            await generateDefaultA4Form();
+
+            const today = new Date();
+            const rocYear = today.getFullYear() - 1911;
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            document.getElementById('input-insurance-date').value = `民國 ${rocYear} 年 ${month} 月 ${day} 日`;
+            
+            // 綁定產生 PDF 按鈕
+            document.getElementById('btn-generate-pdf').addEventListener('click', generateSignedPdf);
+        });
+
+        // ==========================================
+        // 1. 觸控 + 滑鼠完美簽名板初始化
+        // ==========================================
+        function initSignaturePad() {
+            const canvas = document.getElementById('signature-pad');
+            
+            signaturePad = new SignaturePad(canvas, {
+                backgroundColor: 'rgba(255, 255, 255, 0)', // 改為完全透明，有利於完美去背疊加
+                penColor: 'rgb(30, 41, 59)',               // 深灰藍原子筆顏色
+                minWidth: 1.5,
+                maxWidth: 4.5
+            });
+
+            function resizeCanvas() {
+                if (canvas.offsetWidth === 0) return;
+                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                const wasEmpty = signaturePad.isEmpty();
+                const cachedData = wasEmpty ? null : signaturePad.toData();
+
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext("2d").scale(ratio, ratio);
+
+                signaturePad.clear();
+                if (cachedData) {
+                    signaturePad.fromData(cachedData);
+                }
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+
+            if (window.ResizeObserver) {
+                const observer = new ResizeObserver(() => {
+                    resizeCanvas();
+                });
+                observer.observe(canvas);
+            }
+
+            document.getElementById('btn-clear-sig').addEventListener('click', (e) => {
+                e.preventDefault();
+                signaturePad.clear();
+            });
+
+            setTimeout(resizeCanvas, 300);
+        }
+
+        // ==========================================
+        // 2. 切換模式邏輯
+        // ==========================================
+        function setupModeToggles() {
+            const btnMember = document.getElementById('btn-mode-member');
+            const btnAdmin = document.getElementById('btn-mode-admin');
+            const panelMember = document.getElementById('panel-member');
+            const panelAdmin = document.getElementById('panel-admin');
+            const modeTag = document.getElementById('preview-mode-tag');
+            const tipsText = document.getElementById('tips-text');
+            const interactiveLayer = document.getElementById('pdf-interactive-layer');
+
+            btnMember.addEventListener('click', () => {
+                currentMode = 'member';
+                btnMember.className = "px-4 py-1.5 rounded-md text-sm font-medium transition-all bg-blue-600 text-white shadow";
+                btnAdmin.className = "px-4 py-1.5 rounded-md text-sm font-medium transition-all text-indigo-200 hover:text-white";
+                panelMember.classList.remove('hidden');
+                panelAdmin.classList.add('hidden');
+                modeTag.textContent = "目前：會員填寫檢視";
+                modeTag.className = "px-2.5 py-0.5 bg-blue-50 text-blue-700 border border-blue-100 text-xs rounded-full font-medium";
+                tipsText.textContent = "您填寫左側基本資料時，右側對位區會呈現模擬效果。確認無誤且簽名完畢後，點擊「產生並下載官方格式 PDF」即可。";
+                
+                interactiveLayer.classList.add('pointer-events-none');
+                updateDraggablePositions();
+            });
+
+            btnAdmin.addEventListener('click', () => {
+                currentMode = 'admin';
+                btnAdmin.className = "px-4 py-1.5 rounded-md text-sm font-medium transition-all bg-indigo-600 text-white shadow";
+                btnMember.className = "px-4 py-1.5 rounded-md text-sm font-medium transition-all text-blue-200 hover:text-white";
+                panelAdmin.classList.remove('hidden');
+                panelMember.classList.add('hidden');
+                modeTag.textContent = "目前：工會欄位配置模式";
+                modeTag.className = "px-2.5 py-0.5 bg-indigo-50 text-indigo-700 border border-indigo-100 text-xs rounded-full font-medium";
+                tipsText.textContent = "管理者您好！此模式下，您可以用「滑鼠拖曳」或「觸控」右側的方框來調整位置，系統將會即時記錄百分比座標。";
+                
+                interactiveLayer.classList.remove('pointer-events-none');
+                updateDraggablePositions();
+            });
+        }
+
+        // ==========================================
+        // 3. 欄位拖拉與定位演算法 (觸控+滑鼠相容)
+        // ==========================================
+        function setupDraggableLogic() {
+            const wrapper = document.getElementById('pdf-wrapper');
+            const draggables = document.querySelectorAll('.draggable-field');
+
+            draggables.forEach(elem => {
+                elem.addEventListener('mousedown', dragStart);
+                elem.addEventListener('touchstart', dragStart, { passive: false });
+            });
+
+            function dragStart(e) {
+                if (currentMode !== 'admin') return;
+                e.preventDefault();
+                currentDragElement = e.currentTarget;
+                currentDragElement.classList.add('active');
+
+                const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+                const rect = currentDragElement.getBoundingClientRect();
+                dragOffset.x = clientX - rect.left;
+                dragOffset.y = clientY - rect.top;
+
+                document.addEventListener('mousemove', dragMove, { passive: false });
+                document.addEventListener('touchmove', dragMove, { passive: false });
+                document.addEventListener('mouseup', dragEnd);
+                document.addEventListener('touchend', dragEnd);
+            }
+
+            function dragMove(e) {
+                if (!currentDragElement) return;
+                e.preventDefault();
+
+                const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+                const wrapperRect = wrapper.getBoundingClientRect();
+                
+                let x = clientX - wrapperRect.left - dragOffset.x;
+                let y = clientY - wrapperRect.top - dragOffset.y;
+
+                const maxLeft = wrapperRect.width - currentDragElement.offsetWidth;
+                const maxTop = wrapperRect.height - currentDragElement.offsetHeight;
+
+                x = Math.max(0, Math.min(x, maxLeft));
+                y = Math.max(0, Math.min(y, maxTop));
+
+                const pctX = x / wrapperRect.width;
+                const pctY = y / wrapperRect.height;
+
+                const fieldId = currentDragElement.dataset.field;
+                fieldCoordinates[fieldId].x = parseFloat(pctX.toFixed(4));
+                fieldCoordinates[fieldId].y = parseFloat(pctY.toFixed(4));
+
+                if (fieldId === 'signature') {
+                    fieldCoordinates.signature.w = parseFloat((currentDragElement.offsetWidth / wrapperRect.width).toFixed(4));
+                    fieldCoordinates.signature.h = parseFloat((currentDragElement.offsetHeight / wrapperRect.height).toFixed(4));
+                }
+
+                updateDraggablePositions();
+            }
+
+            function dragEnd() {
+                if (currentDragElement) {
+                    currentDragElement.classList.remove('active');
+                }
+                currentDragElement = null;
+                document.removeEventListener('mousemove', dragMove);
+                document.removeEventListener('touchmove', dragMove);
+                document.removeEventListener('mouseup', dragEnd);
+                document.removeEventListener('touchend', dragEnd);
+                
+                localStorage.setItem('tyn_pdf_coords', JSON.stringify(fieldCoordinates));
+            }
+
+            document.getElementById('btn-save-coords').addEventListener('click', () => {
+                localStorage.setItem('tyn_pdf_coords', JSON.stringify(fieldCoordinates));
+                showToast('✅ 欄位定位座標已成功保存至瀏覽器！');
+            });
+
+            document.getElementById('btn-reset-coords').addEventListener('click', () => {
+                if (confirm('確定要將所有欄位座標重設為系統最佳座標嗎？')) {
+                    fieldCoordinates = { ...defaultCoordinates };
+                    localStorage.setItem('tyn_pdf_coords', JSON.stringify(fieldCoordinates));
+                    updateDraggablePositions();
+                    showToast('🔄 已恢復為最佳座標！');
+                }
+            });
+        }
+
+        function updateDraggablePositions() {
+            const wrapper = document.getElementById('pdf-wrapper');
+            const wWidth = wrapper.offsetWidth;
+            const wHeight = wrapper.offsetHeight;
+
+            if (wWidth === 0 || wHeight === 0) return;
+
+            updateSingleElem('drag-field-insurance-date', 'insuranceDate', '加保日', wWidth, wHeight);
+            updateSingleElem('drag-field-name', 'name', '姓名', wWidth, wHeight);
+            updateSingleElem('drag-field-id', 'id', '身分證', wWidth, wHeight);
+            updateSingleElem('drag-field-birth', 'birth', '生日', wWidth, wHeight);
+            updateSingleElem('drag-field-phone', 'phone', '電話', wWidth, wHeight);
+            updateSingleElem('drag-field-address', 'address', '地址', wWidth, wHeight);
+            updateSingleElem('drag-field-birth-place', 'birthPlace', '出生地', wWidth, wHeight);
+            updateSingleElem('drag-field-referrer', 'referrer', '介紹人', wWidth, wHeight);
+            updateSingleElem('drag-field-signature', 'signature', '簽名處', wWidth, wHeight);
+
+            // 更新後台面板上的文字顯示
+            document.getElementById('coord-insuranceDate').textContent = `X: ${(fieldCoordinates.insuranceDate.x*100).toFixed(1)}%, Y: ${(fieldCoordinates.insuranceDate.y*100).toFixed(1)}%`;
+            document.getElementById('coord-name').textContent = `X: ${(fieldCoordinates.name.x*100).toFixed(1)}%, Y: ${(fieldCoordinates.name.y*100).toFixed(1)}%`;
+            document.getElementById('coord-id').textContent = `X: ${(fieldCoordinates.id.x*100).toFixed(1)}%, Y: ${(fieldCoordinates.id.y*100).toFixed(1)}%`;
+            document.getElementById('coord-birth').textContent = `X: ${(fieldCoordinates.birth.x*100).toFixed(1)}%, Y: ${(fieldCoordinates.birth.y*100).toFixed(1)}%`;
+            document.getElementById('coord-phone').textContent = `X: ${(fieldCoordinates.phone.x*100).toFixed(1)}%, Y: ${(fieldCoordinates.phone.y*100).toFixed(1)}%`;
+            document.getElementById('coord-address').textContent = `X: ${(fieldCoordinates.address.x*100).toFixed(1)}%, Y: ${(fieldCoordinates.address.y*100).toFixed(1)}%`;
+            document.getElementById('coord-birthPlace').textContent = `X: ${(fieldCoordinates.birthPlace.x*100).toFixed(1)}%, Y: ${(fieldCoordinates.birthPlace.y*100).toFixed(1)}%`;
+            document.getElementById('coord-referrer').textContent = `X: ${(fieldCoordinates.referrer.x*100).toFixed(1)}%, Y: ${(fieldCoordinates.referrer.y*100).toFixed(1)}%`;
+            document.getElementById('coord-signature').textContent = `X: ${(fieldCoordinates.signature.x*100).toFixed(1)}%, Y: ${(fieldCoordinates.signature.y*100).toFixed(1)}% (W: ${(fieldCoordinates.signature.w*100).toFixed(0)}%, H: ${(fieldCoordinates.signature.h*100).toFixed(0)}%)`;
+        }
+
+        function updateSingleElem(id, fieldKey, label, wrapperW, wrapperH) {
+            const elem = document.getElementById(id);
+            const coord = fieldCoordinates[fieldKey];
+
+            elem.style.left = `${coord.x * 100}%`;
+            elem.style.top = `${coord.y * 100}%`;
+
+            if (fieldKey === 'signature') {
+                elem.style.width = `${coord.w * 100}%`;
+                elem.style.height = `${coord.h * 100}%`;
+            }
+
+            if (currentMode === 'member') {
+                if (fieldKey === 'insuranceDate') {
+                    const val = document.getElementById('input-insurance-date').value;
+                    elem.textContent = val ? `加保日: ${val}` : `(請填加保日)`;
+                } else if (fieldKey === 'name') {
+                    const val = document.getElementById('input-name').value;
+                    elem.textContent = val ? `姓名: ${val}` : `(請填姓名)`;
+                } else if (fieldKey === 'id') {
+                    const val = document.getElementById('input-id').value.toUpperCase();
+                    elem.textContent = val ? `身分證: ${val}` : `(請填身分證)`;
+                } else if (fieldKey === 'birth') {
+                    const val = document.getElementById('input-birth').value;
+                    elem.textContent = val ? `生日: ${val}` : `(請填生日)`;
+                } else if (fieldKey === 'phone') {
+                    const val = document.getElementById('input-phone').value;
+                    elem.textContent = val ? `電話: ${val}` : `(請填電話)`;
+                } else if (fieldKey === 'address') {
+                    const val = document.getElementById('input-address').value;
+                    elem.textContent = val ? `地址: ${val}` : `(請填地址)`;
+                } else if (fieldKey === 'birthPlace') {
+                    const val = document.getElementById('input-birth-place').value;
+                    elem.textContent = val ? `出生地: ${val}` : `(請填出生地)`;
+                } else if (fieldKey === 'referrer') {
+                    const val = document.getElementById('input-referrer').value;
+                    elem.textContent = val ? `介紹人: ${val}` : `介紹人：無`;
+                } else if (fieldKey === 'signature') {
+                    elem.textContent = signaturePad && !signaturePad.isEmpty() ? '✅ 已完成簽章' : '✏️ 尚未簽章';
+                }
+                elem.className = "draggable-field border-transparent bg-blue-100/30 text-blue-900 pointer-events-none text-[10px]";
+            } else {
+                elem.textContent = label;
+                if (fieldKey === 'signature') {
+                    elem.className = "draggable-field border-red-500 bg-red-500/20 text-red-900 font-bold z-10";
+                } else {
+                    elem.className = "draggable-field border-blue-500 bg-blue-500/20 text-blue-900 font-bold z-10";
+                }
+            }
+        }
+
+        // 輸入連動
+        const inputs = ['input-insurance-date', 'input-name', 'input-id', 'input-birth', 'input-phone', 'input-address', 'input-birth-place', 'input-referrer'];
+        inputs.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('input', updateDraggablePositions);
+            }
+        });
+        document.getElementById('signature-pad').addEventListener('mouseup', () => setTimeout(updateDraggablePositions, 100));
+        document.getElementById('signature-pad').addEventListener('touchend', () => setTimeout(updateDraggablePositions, 100));
+
+        // ==========================================
+        // 4. 地址自動完成
+        // ==========================================
+        const mockAddresses = [
+            "桃園市中壢區民權路132號",
+            "桃園市中壢區延平路500號",
+            "桃園市中壢區中大路300號",
+            "桃園市桃園區縣府路1號 (桃園市政府)",
+            "桃園市桃園區中正路1188號",
+            "桃園市桃園區成功路二段141號",
+            "桃園市八德區介壽路一段100號",
+            "桃園市蘆竹區南崁路一段112號",
+            "桃園市平鎮區振興路1號",
+            "桃園市龜山區萬壽路二段300號",
+            "桃園市楊梅區大成路100號",
+            "桃園市大溪區康莊路111號",
+            "桃園市龍潭區中豐路1號"
+        ];
+
+        let googleAutocomplete = null;
+
+        function setupAutocomplete() {
+            const input = document.getElementById('input-address');
+            const dropdown = document.getElementById('address-suggestions');
+
+            input.addEventListener('input', () => {
+                if (googleAutocomplete) return;
+
+                const query = input.value.trim();
+                if (!query) {
+                    dropdown.classList.add('hidden');
+                    return;
+                }
+
+                const matched = mockAddresses.filter(addr => addr.includes(query));
+                
+                if (matched.length > 0) {
+                    dropdown.innerHTML = '';
+                    matched.forEach(addr => {
+                        const div = document.createElement('div');
+                        div.className = "px-4 py-2 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-b-0 text-slate-700 transition-colors";
+                        div.innerHTML = `📍 <strong>${addr.substring(0, query.length)}</strong>${addr.substring(query.length)}`;
+                        div.addEventListener('click', () => {
+                            input.value = addr;
+                            dropdown.classList.add('hidden');
+                            updateDraggablePositions();
+                        });
+                        dropdown.appendChild(div);
+                    });
+                    dropdown.classList.remove('hidden');
+                } else {
+                    dropdown.classList.add('hidden');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            });
+        }
+
+        function initRealGoogleAutocomplete(key) {
+            if (window.google) return;
+
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`;
+            script.async = true;
+            script.defer = true;
+            script.onload = () => {
+                const input = document.getElementById('input-address');
+                googleAutocomplete = new google.maps.places.Autocomplete(input, {
+                    componentRestrictions: { country: 'tw' },
+                    fields: ['formatted_address', 'geometry'],
+                    types: ['address']
+                });
+
+                googleAutocomplete.addListener('place_changed', () => {
+                    const place = googleAutocomplete.getPlace();
+                    if (place.formatted_address) {
+                        input.value = place.formatted_address.replace('台灣', '').trim();
+                        updateDraggablePositions();
+                    }
+                });
+                showToast('🌐 Google 地址自動完成功能已啟用！');
+            };
+            document.head.appendChild(script);
+        }
+
+        function setupGoogleKeyInput() {
+            const keyInput = document.getElementById('admin-google-key');
+            keyInput.addEventListener('change', () => {
+                const val = keyInput.value.trim();
+                if (val.startsWith('AIzaSy')) {
+                    initRealGoogleAutocomplete(val);
+                }
+            });
+        }
+
+        // ==========================================
+        // 5. 載入與渲染自訂 PDF
+        // ==========================================
+        function setupPdfUpload() {
+            const upload = document.getElementById('upload-pdf');
+            const status = document.getElementById('upload-status');
+
+            upload.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = async function() {
+                    rawPdfBytes = new Uint8Array(this.result);
+                    await renderPdfToCanvas(rawPdfBytes);
+                    status.classList.remove('hidden');
+                    showToast('🎉 空白申請書 PDF 載入成功！');
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        async function renderPdfToCanvas(pdfBytes) {
+            const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
+            pdfDoc = await loadingTask.promise;
+            const page = await pdfDoc.getPage(1);
+            
+            const canvas = document.getElementById('pdf-render-canvas');
+            const context = canvas.getContext('2d');
+            
+            const viewport = page.getViewport({ scale: 1.5 });
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            
+            await page.render(renderContext).promise;
+
+            const wrapper = document.getElementById('pdf-wrapper');
+            wrapper.style.width = `${canvas.clientWidth}px`;
+            wrapper.style.height = `${canvas.clientHeight}px`;
+
+            setTimeout(updateDraggablePositions, 150);
+        }
+
+        // ==========================================
+        // 6. 出廠預設：官方格式表格 A4 生成
+        // ==========================================
+        async function generateDefaultA4Form() {
+            const pdfDoc = await PDFLib.PDFDocument.create();
+            const page = pdfDoc.addPage([595.28, 841.89]); // A4: 595 x 841
+            const { width, height } = page.getSize();
+
+            // 繪製標題
+            const headerBytes = await drawTextToPng("桃園市生活助理從業人員職業工會入會申請書", 20, '#1e3a8a', true);
+            const headerImage = await pdfDoc.embedPng(headerBytes);
+            page.drawImage(headerImage, {
+                x: width/2 - headerImage.width/4,
+                y: height - 55,
+                width: headerImage.width/2,
+                height: headerImage.height/2
+            });
+
+            // 表格主邊框 (X: 40 ~ 555, Width: 515. Y: 85 ~ 765, Height: 680)
+            const tX = 40;
+            const tW = 515;
+            const tYStart = height - 75; // 766
+            
+            // 繪製格線與文字
+            // Row 1: 會員編號 / 加保日 (Y: 735 - 765, H: 30)
+            drawA4Cell(page, "會員編號:", tX, tYStart - 30, 80, 30, true);
+            drawA4Cell(page, "", tX + 80, tYStart - 30, 160, 30);
+            drawA4Cell(page, "加保日:", tX + 240, tYStart - 30, 80, 30, true);
+            drawA4Cell(page, "    年    月    日", tX + 320, tYStart - 30, 195, 30);
+
+            // Row 2: 姓名 / 相片 / 身分證字號 (Y: 695 - 735, H: 40)
+            drawA4Cell(page, "姓  名", tX, tYStart - 70, 80, 40, true);
+            drawA4Cell(page, "", tX + 80, tYStart - 70, 160, 40); // 姓名填寫區 (Coord: name)
+            drawA4Cell(page, "身分證字號", tX + 240, tYStart - 70, 80, 40, true);
+            drawA4Cell(page, "", tX + 320, tYStart - 70, 115, 40); // 身分證填寫區 (Coord: id)
+            drawA4Cell(page, "相片處", tX + 435, tYStart - 70, 80, 40, true);
+
+            // Row 3: 出生日 / 電話 (Y: 655 - 695, H: 40)
+            drawA4Cell(page, "出生日", tX, tYStart - 110, 80, 40, true);
+            drawA4Cell(page, "", tX + 80, tYStart - 110, 160, 40); // 出生年月日填寫區
+            drawA4Cell(page, "電  話", tX + 240, tYStart - 110, 80, 40, true);
+            drawA4Cell(page, "", tX + 320, tYStart - 110, 195, 40); // 電話填寫區
+
+            // Row 4: 地址 (Y: 615 - 655, H: 40)
+            drawA4Cell(page, "地  址", tX, tYStart - 150, 80, 40, true);
+            drawA4Cell(page, "", tX + 80, tYStart - 150, 435, 40); // 地址填寫區
+
+            // Row 5: 出生地 / 備註 (Y: 575 - 615, H: 40)
+            drawA4Cell(page, "出生地", tX, tYStart - 190, 80, 40, true);
+            drawA4Cell(page, "", tX + 80, tYStart - 190, 160, 40); // 清空預設 A4 的靜態"桃園市"字樣
+            drawA4Cell(page, "備  註", tX + 240, tYStart - 190, 80, 40, true);
+            drawA4Cell(page, "", tX + 320, tYStart - 190, 195, 40);
+
+            // Row 6: 全民健保眷屬資料 (Y: 435 - 575, H: 140)
+            drawA4Cell(page, "全民健保\n依附眷屬\n資料", tX, tYStart - 330, 80, 140, true);
+            // 健保表格細分
+            drawA4Cell(page, "姓名", tX + 80, tYStart - 215, 80, 25, true);
+            drawA4Cell(page, "關係", tX + 160, tYStart - 215, 60, 25, true);
+            drawA4Cell(page, "身分證字號", tX + 220, tYStart - 215, 150, 25, true);
+            drawA4Cell(page, "出生年月日", tX + 370, tYStart - 215, 145, 25, true);
+            // 眷屬空白格 3 列
+            for (let i = 0; i < 3; i++) {
+                const rowY = tYStart - 240 - (i * 30);
+                drawA4Cell(page, "", tX + 80, rowY, 80, 30);
+                drawA4Cell(page, "", tX + 160, rowY, 60, 30);
+                drawA4Cell(page, "", tX + 220, rowY, 150, 30);
+                drawA4Cell(page, "", tX + 370, rowY, 145, 30);
+            }
+
+            // Row 7: 切結保證聲明 (Y: 275 - 435, H: 140)
+            drawA4Cell(page, "切結保證", tX, tYStart - 470, 80, 140, true);
+            
+            const declarationLines = [
+                "一. 本人確實從事生活助理相關工作, 且加保當日人在本國境內, 屬自營作業或無",
+                "    一定雇主, 申請加入會員, 並願遵守工會章程及政府相關法令, 履行應盡之義",
+                "    務。若有利用工會進行違法、投機情事, 本人暨保證人均放棄一切先訴抗辯權",
+                "    並願負全部責任, 慨與工會無關。",
+                "二. 正在住院中, 請領勞保各項給付或失業給付者, 請勿投保以免影響權益。",
+                "三. 暫收勞保費, 其起算日以勞工保險局確認加保完成之日期為準確日。",
+                "    謹呈  桃園市生活助理從業人員職業工會"
+            ];
+            await drawLinesIntoBox(pdfDoc, page, declarationLines, tX + 90, tYStart - 350, 415, 12);
+
+            // Row 8: 介紹人 / 申請人簽章 (Y: 175 - 275, H: 100)
+            drawA4Cell(page, "介紹人", tX, tYStart - 570, 80, 100, true);
+            drawA4Cell(page, "", tX + 80, tYStart - 570, 160, 100); // 介紹人填寫處
+            drawA4Cell(page, "申請人\n簽章", tX + 240, tYStart - 570, 80, 100, true);
+            
+            // 簽名紅框
+            page.drawRectangle({
+                x: tX + 330,
+                y: tYStart - 560,
+                width: 175,
+                height: 80,
+                borderColor: PDFLib.rgb(0.9, 0.3, 0.3),
+                borderWidth: 1,
+                color: PDFLib.rgb(1, 0.99, 0.99)
+            });
+            const sigHintBytes = await drawTextToPng("( 請在此紅框內手寫親筆簽名 )", 9, '#ef4444');
+            const sigHintImg = await pdfDoc.embedPng(sigHintBytes);
+            page.drawImage(sigHintImg, {
+                x: tX + 345,
+                y: tYStart - 555,
+                width: sigHintImg.width/2,
+                height: sigHintImg.height/2
+            });
+
+            // Row 9: 注意事項 (Y: 55 - 175, H: 120)
+            drawA4Cell(page, "注意\n事項", tX, tYStart - 690, 80, 120, true);
+            const noticeLines = [
+                "1. 申請人請用黑筆親自工整填寫後交由工會審查通過辦理加保手續。",
+                "2. 每年的三、六、九、十二月為繳費的月份, 屆時會郵寄繳費通知單, 請於規定之日期內繳納, 以免延誤工會作業。",
+                "3. 若您不繼續投保, 必須至工會辦理退保手續。",
+                "4. 本會會員在轉業時, 請至工會辦理退會。",
+                "5. 若無通知工會辦理退保而重復加保或過月通知, 恕不退勞保費。",
+                "6. 您的通訊地址或電話有變更, 請來本會或電話告知更正, 以保障您的權利。"
+            ];
+            await drawLinesIntoBox(pdfDoc, page, noticeLines, tX + 90, tYStart - 590, 415, 9.5, '#475569');
+
+            // 底部日期
+            const bottomTextBytes = await drawTextToPng("中華民國        年        月        日      -      投保有效年資:        年        日", 11, '#1e293b');
+            const bottomTextImg = await pdfDoc.embedPng(bottomTextBytes);
+            page.drawImage(bottomTextImg, {
+                x: width/2 - bottomTextImg.width/4,
+                y: 50,
+                width: bottomTextImg.width/2,
+                height: bottomTextImg.height/2
+            });
+
+            rawPdfBytes = await pdfDoc.save();
+            await renderPdfToCanvas(rawPdfBytes);
+        }
+
+        // 輔助繪製儲存格格線與背景
+        async function drawA4Cell(page, labelText, x, y, width, height, isHeader = false) {
+            page.drawRectangle({
+                x: x,
+                y: y,
+                width: width,
+                height: height,
+                borderColor: PDFLib.rgb(0.74, 0.8, 0.86),
+                borderWidth: 1,
+                color: isHeader ? PDFLib.rgb(0.93, 0.95, 0.98) : PDFLib.rgb(1, 1, 1)
+            });
+
+            if (labelText) {
+                const lines = labelText.split('\n');
+                let curY = y + (height / 2) + (lines.length - 1) * 7 - 5;
+                for (const line of lines) {
+                    const textBytes = await drawTextToPng(line, isHeader ? 11 : 10, isHeader ? '#1e3a8a' : '#334155', isHeader);
+                    const textImg = await page.doc.embedPng(textBytes);
+                    page.drawImage(textImg, {
+                        x: x + (width / 2) - (textImg.width / 4),
+                        y: curY,
+                        width: textImg.width / 2,
+                        height: textImg.height / 2
+                    });
+                    curY -= 15;
+                }
+            }
+        }
+
+        // 輔助寫入整段聲明文字到 PDF Box 中
+        async function drawLinesIntoBox(pdfDoc, page, lines, startX, startY, width, fontSize, fontColor = '#1e293b') {
+            let curY = startY;
+            for (const line of lines) {
+                const textBytes = await drawTextToPng(line, fontSize, fontColor);
+                const textImg = await pdfDoc.embedPng(textBytes);
+                page.drawImage(textImg, {
+                    x: startX,
+                    y: curY,
+                    width: textImg.width/2,
+                    height: textImg.height/2
+                });
+                curY -= (fontSize + 6);
+            }
+        }
+
+        // ==========================================
+        // 7. 中文字串轉高清 PNG 圖片 (2x Retina 高畫質)
+        // ==========================================
+        function drawTextToPng(text, fontSize = 24, fontColor = '#000000', isBold = false) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                const fontStyle = `${isBold ? 'bold' : 'normal'} ${fontSize * 2}px "Noto Sans TC", "Microsoft JhengHei", sans-serif`;
+                ctx.font = fontStyle;
+                
+                const metrics = ctx.measureText(text);
+                const textWidth = Math.ceil(metrics.width) + 16;
+                const textHeight = Math.ceil(fontSize * 2.8);
+                
+                canvas.width = textWidth;
+                canvas.height = textHeight;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.font = fontStyle;
+                ctx.fillStyle = fontColor;
+                ctx.textBaseline = 'middle';
+                ctx.fillText(text, 8, textHeight / 2);
+                
+                canvas.toBlob((blob) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        resolve(new Uint8Array(reader.result));
+                    };
+                    reader.readAsArrayBuffer(blob);
+                }, 'image/png');
+            });
+        }
+
+        // ==========================================
+        // 8. 產生並下載 PDF 核心邏輯
+        // ==========================================
+        async function generateSignedPdf() {
+            const nameVal = document.getElementById('input-name').value.trim();
+            const idVal = document.getElementById('input-id').value.trim().toUpperCase();
+            const birthVal = document.getElementById('input-birth').value.trim();
+            const phoneVal = document.getElementById('input-phone').value.trim();
+            const addressVal = document.getElementById('input-address').value.trim();
+            const birthPlaceVal = document.getElementById('input-birth-place').value.trim();
+            const referrerVal = document.getElementById('input-referrer').value.trim() || "無";
+            const insuranceDateVal = document.getElementById('input-insurance-date').value.trim();
+
+            if (!nameVal || !idVal || !birthVal || !phoneVal || !addressVal || !insuranceDateVal || !birthPlaceVal) {
+                alert('⚠️ 為了申辦成功，請將所有必填基本資料（含出生地、出生年月日、電話與希望加保日）填寫完整！');
+                return;
+            }
+
+            if (!signaturePad || signaturePad.isEmpty()) {
+                alert('⚠️ 請先在下方的簽名板完成您的親筆手寫簽章！');
+                return;
+            }
+
+            showToast('🔄 正在完美疊加您的手寫簽章並產出 PDF...');
+
+            try {
+                const pdfDoc = await PDFLib.PDFDocument.load(rawPdfBytes);
+                const pages = pdfDoc.getPages();
+                const firstPage = pages[0];
+                const { width, height } = firstPage.getSize();
+
+                // 批次繪入欄位
+                const fieldData = [
+                    { val: insuranceDateVal, coord: fieldCoordinates.insuranceDate, size: 11 },
+                    { val: nameVal, coord: fieldCoordinates.name, size: 14 },
+                    { val: idVal, coord: fieldCoordinates.id, size: 14 },
+                    { val: birthVal, coord: fieldCoordinates.birth, size: 12 },
+                    { val: phoneVal, coord: fieldCoordinates.phone, size: 12 },
+                    { val: addressVal, coord: fieldCoordinates.address, size: 11 },
+                    { val: birthPlaceVal, coord: fieldCoordinates.birthPlace, size: 12 },
+                    { val: referrerVal, coord: fieldCoordinates.referrer, size: 12 }
+                ];
+
+                for (const item of fieldData) {
+                    const pngBytes = await drawTextToPng(item.val, item.size, '#0f172a');
+                    const img = await pdfDoc.embedPng(pngBytes);
+                    firstPage.drawImage(img, {
+                        x: item.coord.x * width,
+                        y: height - (item.coord.y * height) - (img.height / 2),
+                        width: img.width / 2,
+                        height: img.height / 2
+                    });
+                }
+
+                // 繪入親筆手寫簽名
+                const sigDataUrl = signaturePad.toDataURL("image/png");
+                const sigImageBytes = await fetch(sigDataUrl).then(res => res.arrayBuffer());
+                const sigImage = await pdfDoc.embedPng(sigImageBytes);
+
+                const targetW = fieldCoordinates.signature.w * width;
+                const targetH = fieldCoordinates.signature.h * height;
+
+                firstPage.drawImage(sigImage, {
+                    x: fieldCoordinates.signature.x * width,
+                    y: height - (fieldCoordinates.signature.y * height) - targetH,
+                    width: targetW,
+                    height: targetH
+                });
+
+                // 下載匯出
+                const signedPdfBytes = await pdfDoc.save();
+                const blob = new Blob([signedPdfBytes], { type: "application/pdf" });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `桃園市生活助理工會_入會申請書_${nameVal}.pdf`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                showToast('🎉 下載成功！請將該 PDF 檔案回傳至工會秘書處。');
+
+            } catch (err) {
+                console.error(err);
+                alert('系統在合成 PDF 時遇到阻礙，請聯絡工會資訊人員！');
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = "fixed bottom-5 right-5 bg-slate-900 text-white text-sm py-3 px-5 rounded-xl shadow-2xl transition-all z-50 transform translate-y-10 opacity-0 duration-300 border border-slate-700/80 flex items-center gap-2";
+            toast.innerHTML = `<span>⚡</span> ${message}`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
