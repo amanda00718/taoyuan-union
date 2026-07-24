@@ -76,6 +76,20 @@
     <changefreq>weekly</changefreq>
   </url>
 
+
+  <url>
+  <loc>https://tynunion.com/shopping-agent-labor-insurance.html</loc>
+  <priority>0.92</priority>
+  <changefreq>weekly</changefreq>
+</url>
+
+
+  <url>
+  <loc>https://tynunion.com/florist-labor-insurance.html</loc>
+  <priority>0.92</priority>
+  <changefreq>weekly</changefreq>
+</url>
+
   <!-- 勞保核心頁 -->
   <url>
     <loc>https://tynunion.com/no-company-labor-insurance.html</loc>
